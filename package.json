@@ -1,0 +1,16 @@
+{
+  "name": "pawdirecte",
+  "version": "0.0.0",
+  "description": "A simple wrapper around Aplim's EcoleDirecte internal API.",
+  "main": "./dist/index.js",
+  "scripts": {
+    "tsx": "tsx"
+  },
+  "keywords": [],
+  "author": "Mikkel RINGAUD <mikkel@milescode.dev> (https://github.com/Vexcited)",
+  "license": "MIT",
+  "devDependencies": {
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  }
+}
