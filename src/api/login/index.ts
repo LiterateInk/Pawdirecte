@@ -1,7 +1,7 @@
 import type { EdApiLogin, EdLogin } from "./types";
 
 import { makeApiHandler } from "~/utils/api";
-import encoder from "~/utils/url-data-encoder";
+import encoder from "~/utils/encoder";
 
 import { API_URL, API_VERSION } from "~/utils/constants";
 
