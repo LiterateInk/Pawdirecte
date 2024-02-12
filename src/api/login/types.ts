@@ -1,23 +1,15 @@
 import type { EdApiAccount } from "~/ecoledirecte/account";
+import type { EdApiResponse } from "~/ecoledirecte/response";
 
 export interface EdApiLogin {
-  response: {
-    code: 200
-    token: string
-    message: ""
-    data: {
+  response: EdApiResponse<{
+    successCode: 200,
+    errorCode: 505 | 522,
+    successData: {
       changementMDP: boolean
       accounts: Array<EdApiAccount>
     }
-  } | {
-    code: 505 | 522
-    token: ""
-    message: string
-    data: {
-      changementMDP: boolean
-      accounts: []
-    }
-  }
+  }>
 
   request: {
     identifiant: string
