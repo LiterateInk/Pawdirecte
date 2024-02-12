@@ -54,7 +54,9 @@
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^1.6.1",
+    "@types/node": "^20.11.17",
     "@typescript-eslint/parser": "^6.21.0",
+    "dotenv": "^16.4.2",
     "eslint": "^8.56.0",
     "release-it": "^17.0.3",
     "terser": "^5.27.0",
