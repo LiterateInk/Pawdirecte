@@ -3,13 +3,62 @@
   "version": "0.0.0",
   "description": "A simple wrapper around Aplim's EcoleDirecte internal API.",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
   "scripts": {
+    "build": "pnpm lint && tsup src/index.ts --dts --minify terser --clean --format cjs,esm --sourcemap",
+    "release": "release-it",
+    "lint": "eslint .",
     "tsx": "tsx"
   },
-  "keywords": [],
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "ecoledirecte",
+    "api",
+    "wrapper",
+    "student",
+    "France"
+  ],
   "author": "Mikkel RINGAUD <mikkel@milescode.dev> (https://github.com/Vexcited)",
   "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}",
+      "tagAnnotation": "Release v${version}",
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true,
+      "draft": false,
+      "releaseName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "hooks": {
+      "before:init": "pnpm lint",
+      "after:bump": "pnpm build"
+    }
+  },
   "devDependencies": {
+    "@stylistic/eslint-plugin": "^1.6.1",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.56.0",
+    "release-it": "^17.0.3",
+    "terser": "^5.27.0",
+    "tsup": "^8.0.2",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3"
   }
