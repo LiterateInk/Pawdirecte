@@ -1,4 +1,4 @@
-import { StringBooleanAsNumber } from "~/utils/boolean";
+import { BooleanAsNumberInString } from "~/utils/boolean";
 
 export enum EdApiModuleCode {
   CANTINE_BARCODE = "CANTINE_BARCODE",
@@ -83,25 +83,25 @@ export interface EdApiModuleCloud extends EdApiModuleBase {
 export interface EdApiModuleMessagerie extends EdApiModuleBase {
   code: EdApiModuleCode.MESSAGERIE
   params: {
-    isActif: StringBooleanAsNumber
-    canParentsLireMessagesEnfants: StringBooleanAsNumber
-    destAdmin: StringBooleanAsNumber
-    destEleve: StringBooleanAsNumber
-    destFamille: StringBooleanAsNumber
-    destProf: StringBooleanAsNumber
-    destEspTravail: StringBooleanAsNumber
-    disabledNotification: StringBooleanAsNumber
-    notificationEmailEtablissement: StringBooleanAsNumber
-    choixMailNotification: StringBooleanAsNumber
+    isActif: BooleanAsNumberInString
+    canParentsLireMessagesEnfants: BooleanAsNumberInString
+    destAdmin: BooleanAsNumberInString
+    destEleve: BooleanAsNumberInString
+    destFamille: BooleanAsNumberInString
+    destProf: BooleanAsNumberInString
+    destEspTravail: BooleanAsNumberInString
+    disabledNotification: BooleanAsNumberInString
+    notificationEmailEtablissement: BooleanAsNumberInString
+    choixMailNotification: BooleanAsNumberInString
     autreMailNotification: string
     /** Professional email. */
     mailPro: string
     /** Personal email. */
     mailPerso: string
     messagerieApiVersion: "v3"
-    blackListProfActive: StringBooleanAsNumber
-    estEnBlackList: StringBooleanAsNumber
-    afficherToutesLesClasses: StringBooleanAsNumber
+    blackListProfActive: BooleanAsNumberInString
+    estEnBlackList: BooleanAsNumberInString
+    afficherToutesLesClasses: BooleanAsNumberInString
   }
 }
 
@@ -113,19 +113,19 @@ export interface EdApiModuleEDT extends EdApiModuleBase {
 export interface EdApiModuleDocumentsEleve extends EdApiModuleBase {
   code: EdApiModuleCode.DOCUMENTS_ELEVE
   params: {
-    DocumentsNotesActif: StringBooleanAsNumber
-    DocumentsVSActif: StringBooleanAsNumber
-    DocumentsAdministratifActif: StringBooleanAsNumber
-    DocumentsEntrepriseActif: StringBooleanAsNumber
+    DocumentsNotesActif: BooleanAsNumberInString
+    DocumentsVSActif: BooleanAsNumberInString
+    DocumentsAdministratifActif: BooleanAsNumberInString
+    DocumentsEntrepriseActif: BooleanAsNumberInString
   }
 }
 
 export interface EdApiModuleCahierDeTextes extends EdApiModuleBase {
   code: EdApiModuleCode.CAHIER_DE_TEXTES
   params: {
-    compteRenduSeance: StringBooleanAsNumber
-    compteRenduSeancePrevisionnel: StringBooleanAsNumber
-    isCDTPrimaire: StringBooleanAsNumber
+    compteRenduSeance: BooleanAsNumberInString
+    compteRenduSeancePrevisionnel: BooleanAsNumberInString
+    isCDTPrimaire: BooleanAsNumberInString
   }
 }
 
@@ -150,27 +150,27 @@ export interface EdApiModuleReservations extends EdApiModuleBase {
     // NOTE: Another value can be attributed here, I guess ?
     regime: "Externe libre",
 
-    repasmidi_1: StringBooleanAsNumber
-    repassoir_1: StringBooleanAsNumber
-    repasmidi_2: StringBooleanAsNumber
-    repassoir_2: StringBooleanAsNumber
-    repasmidi_3: StringBooleanAsNumber
-    repassoir_3: StringBooleanAsNumber
-    repasmidi_4: StringBooleanAsNumber
-    repassoir_4: StringBooleanAsNumber
-    repasmidi_5: StringBooleanAsNumber
-    repassoir_5: StringBooleanAsNumber
-    repasmidi_6: StringBooleanAsNumber
-    repassoir_6: StringBooleanAsNumber
-    repasmidi_7: StringBooleanAsNumber
-    repassoir_7: StringBooleanAsNumber
+    repasmidi_1: BooleanAsNumberInString
+    repassoir_1: BooleanAsNumberInString
+    repasmidi_2: BooleanAsNumberInString
+    repassoir_2: BooleanAsNumberInString
+    repasmidi_3: BooleanAsNumberInString
+    repassoir_3: BooleanAsNumberInString
+    repasmidi_4: BooleanAsNumberInString
+    repassoir_4: BooleanAsNumberInString
+    repasmidi_5: BooleanAsNumberInString
+    repassoir_5: BooleanAsNumberInString
+    repasmidi_6: BooleanAsNumberInString
+    repassoir_6: BooleanAsNumberInString
+    repasmidi_7: BooleanAsNumberInString
+    repassoir_7: BooleanAsNumberInString
   }
 }
 
 export interface EdApiModuleCommandePassage extends EdApiModuleBase {
   code: EdApiModuleCode.COMMANDE_PASSAGE
   params: {
-    affichageMenuSeul: StringBooleanAsNumber
+    affichageMenuSeul: BooleanAsNumberInString
   }
 }
 
