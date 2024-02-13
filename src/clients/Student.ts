@@ -3,6 +3,7 @@ import { callApiStudentTimeline } from "~/api/student/timeline";
 import { defaultEDFetcher } from "~/utils/fetcher";
 
 import TimelineItem from "~/parsers/TimelineItem";
+import { callApiEdforms } from "~/api/edforms";
 
 class EDStudent {
   public id: string;
@@ -46,6 +47,16 @@ class EDStudent {
 
     this.token = response.token;
     return response.data.map((item) => new TimelineItem(item));
+  }
+
+  public async getEdforms () {
+    const response = await callApiEdforms(this.fetcher, {
+      token: this.token,
+      id: this.id
+    });
+
+    this.token = response.token;
+    return response.data;
   }
 }
 
