@@ -1,9 +1,11 @@
+import type { EdApiResponseError } from "~/ecoledirecte/response";
+import type { EDFetcher } from "./fetcher";
+
 import { API_URL, API_VERSION } from "./constants";
 import encoder from "./encoder";
-import { EDFetcher } from "./fetcher";
 
 export const makeApiRequest = async <
-  Api extends { request: unknown, response: unknown },
+  Api extends { errors: unknown, request: unknown, response: unknown },
   ResponseType extends "json" | "text" = "json"
 >(fetcher: EDFetcher, init: {
   /**
@@ -50,7 +52,7 @@ export const makeApiRequest = async <
    * When downloading binaries, we should use `text`.
    */
   responseType?: ResponseType
-}): Promise<ResponseType extends "json" ? Api["response"] : string> => {
+}): Promise<(ResponseType extends "json" ? Api["response"] : string) | EdApiResponseError<Api["errors"]>> => {
   const url = new URL(`${API_URL}${init.path}`);
   const searchParamsAsObject: Record<string, string | undefined> = {
     ...init.additionalSearchParams,

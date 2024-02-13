@@ -1,18 +1,16 @@
-export type EdApiResponse<T extends {
-  successCode: unknown
-  successData: unknown
-  errorCode: unknown
-}> = {
-  code: T["successCode"]
-  token: string
-  message: ""
-  data: T["successData"]
-} | {
-  code: T["errorCode"]
+export interface EdApiResponseError<Codes> {
+  code: Codes
   token: ""
   message: string
   data: {
     changementMDP: boolean
     accounts: []
   }
+}
+
+export interface EdApiResponse<Code, Res> {
+  code: Code
+  token: string
+  message: ""
+  data: Res
 };

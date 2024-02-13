@@ -2,13 +2,10 @@ import type { EdApiAccount } from "~/ecoledirecte/account";
 import type { EdApiResponse } from "~/ecoledirecte/response";
 
 export interface EdApiLogin {
-  response: EdApiResponse<{
-    successCode: 200,
-    errorCode: 505 | 522,
-    successData: {
-      changementMDP: boolean
-      accounts: Array<EdApiAccount>
-    }
+  errors: 505 | 522
+  response: EdApiResponse<200, {
+    changementMDP: boolean
+    accounts: Array<EdApiAccount>
   }>
 
   request: {
