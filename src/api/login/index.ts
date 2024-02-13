@@ -3,7 +3,7 @@ import type { EdApiLogin, EdLogin } from "./types";
 import { makeApiHandler } from "~/utils/api";
 import { makeApiRequest } from "~/utils/request";
 
-export const edApiLogin = makeApiHandler<EdLogin>(async (fetcher, input) => {
+export const callApiLogin = makeApiHandler<EdLogin>(async (fetcher, input) => {
   const json = await makeApiRequest<EdApiLogin>(fetcher, {
     path: "/login.awp",
     token: undefined,
