@@ -1,5 +1,8 @@
 import type { EdApiAccount } from "~/ecoledirecte/account";
-import type { EDFetcher } from "~/utils/fetcher";
+import { callApiStudentTimeline } from "~/api/student/timeline";
+import { defaultEDFetcher } from "~/utils/fetcher";
+
+import TimelineItem from "~/parsers/TimelineItem";
 
 class EDStudent {
   public id: string;
@@ -19,8 +22,8 @@ class EDStudent {
 
   constructor (
     public token: string,
-    private account: EdApiAccount,
-    public fetcher: EDFetcher
+    account: EdApiAccount,
+    public fetcher = defaultEDFetcher
   ) {
     this.id = account.id.toString();
     this.firstName = account.prenom;
@@ -33,6 +36,16 @@ class EDStudent {
     this.gender = (typeof account.profile.sexe !== "undefined" && account.profile.sexe !== null)
       ? account.profile.sexe
       : account.civilite === "Mme" ? "F" : "M";
+  }
+
+  public async getTimeline (): Promise<TimelineItem[]> {
+    const response = await callApiStudentTimeline(this.fetcher, {
+      token: this.token,
+      studentID: this.id
+    });
+
+    this.token = response.token;
+    return response.data.map((item) => new TimelineItem(item));
   }
 }
 
