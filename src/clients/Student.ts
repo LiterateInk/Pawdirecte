@@ -1,9 +1,13 @@
 import type { EdApiAccount } from "~/ecoledirecte/account";
-import { callApiStudentTimeline } from "~/api/student/timeline";
 import { defaultEDFetcher } from "~/utils/fetcher";
 
-import TimelineItem from "~/parsers/TimelineItem";
+// API callers
+import { callApiStudentTimeline } from "~/api/student/timeline";
 import { callApiEdforms } from "~/api/edforms";
+import { callApiStudentVisios } from "~/api/student/visios";
+
+// Response Parsers
+import TimelineItem from "~/parsers/TimelineItem";
 
 class EDStudent {
   public id: string;
@@ -53,6 +57,16 @@ class EDStudent {
     const response = await callApiEdforms(this.fetcher, {
       token: this.token,
       id: this.id
+    });
+
+    this.token = response.token;
+    return response.data;
+  }
+
+  public async getVisios () {
+    const response = await callApiStudentVisios(this.fetcher, {
+      token: this.token,
+      studentID: this.id
     });
 
     this.token = response.token;
