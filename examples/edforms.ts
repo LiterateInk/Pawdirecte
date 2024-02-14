@@ -1,4 +1,4 @@
-import { initWithCredentials, initWithExportedData, EDStudent } from "../src";
+import { initWithCredentials } from "../src";
 import { ExampleCredentialsError, credentials } from "./_credentials";
 
 (async () => {
