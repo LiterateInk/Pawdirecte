@@ -5,9 +5,11 @@ import { defaultEDFetcher } from "~/utils/fetcher";
 import { callApiStudentTimeline } from "~/api/student/timeline";
 import { callApiEdforms } from "~/api/edforms";
 import { callApiStudentVisios } from "~/api/student/visios";
+import { callApiStudentTimetable } from "~/api/student/timetable";
 
 // Response Parsers
 import TimelineItem from "~/parsers/TimelineItem";
+import TimetableItem from "~/parsers/TimetableItem";
 
 class EDStudent {
   public id: string;
@@ -71,6 +73,23 @@ class EDStudent {
 
     this.token = response.token;
     return response.data;
+  }
+
+
+  /**
+   * @param from Timetable starting from this date.
+   * @param to When not defined, it's the same as `from` so it displays the timetable for the day.
+   */
+  public async getTimetable (from: Date, to = from): Promise<TimetableItem[]> {
+    const response = await callApiStudentTimetable(this.fetcher, {
+      startDate: from,
+      endDate: to,
+      studentID: this.id,
+      token: this.token
+    });
+
+    this.token = response.token;
+    return response.data.map((item) => new TimetableItem(item));
   }
 }
 
