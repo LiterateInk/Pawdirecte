@@ -1,6 +1,6 @@
+import type { EDUserType } from "~/constants/UserType";
 import type { EDApiModule } from "~/ecoledirecte/modules";
 import type { BooleanAsNumber } from "~/utils/boolean";
-
 
 export interface EdApiAccount {
   /** NOTE: Not sure which ID this one is. */
@@ -18,11 +18,7 @@ export interface EdApiAccount {
   /** Username used to login. */
   identifiant: string
 
-  /**
-   * Account type, can be:
-   * - `E` for students (Eleve)
-   */
-  typeCompte: "E"
+  typeCompte: keyof typeof EDUserType
 
   /**
    * ID referring to the school's OGEC code.
