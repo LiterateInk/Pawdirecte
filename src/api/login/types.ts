@@ -1,5 +1,6 @@
 import type { EdApiAccount } from "~/ecoledirecte/account";
 import type { EdApiResponse } from "~/ecoledirecte/response";
+import type { EdUserType } from "~/constants/UserType";
 
 export interface EdApiLogin {
   errors: 505 | 522
@@ -10,19 +11,39 @@ export interface EdApiLogin {
 
   request: {
     identifiant: string
-    motdepasse: string
-    /** NOTE: Not sure what this does. */
-    isReLogin: boolean
-    /** NOTE: Not sure where this is stored. */
+    /** UUID of the device used to remember the login. */
     uuid: string
-  }
+  } & (
+    | {
+      isReLogin: false
+      motdepasse: string
+      sesouvenirdemoi: true
+    }
+    | {
+      isReLogin: true
+      motdepasse: "???"
+      typeCompte: keyof typeof EdUserType
+      accesstoken: string
+    }
+  )
 }
 
 export interface EdLogin {
   input: {
     username: string
-    password: string
-  }
+    deviceUUID: string
+  } & (
+    | {
+      recovery: false
+      password: string
+    }
+    | {
+      recovery: true
+      accessToken: string
+      managerToken: string
+      accountType: keyof typeof EdUserType
+    }
+  )
 
   output: EdApiLogin["response"]
 }

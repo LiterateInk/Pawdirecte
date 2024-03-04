@@ -1,4 +1,4 @@
-import type { EDUserType } from "~/constants/UserType";
+import type { EdUserType } from "~/constants/UserType";
 import type { EDApiModule } from "~/ecoledirecte/modules";
 import type { BooleanAsNumber } from "~/utils/boolean";
 
@@ -18,7 +18,7 @@ export interface EdApiAccount {
   /** Username used to login. */
   identifiant: string
 
-  typeCompte: keyof typeof EDUserType
+  typeCompte: keyof typeof EdUserType
 
   /**
    * ID referring to the school's OGEC code.
@@ -72,6 +72,9 @@ export interface EdApiAccount {
 
   /** NOTE: Not sure what this adds. */
   dicoEnLigneLeRobert: boolean
+
+  /** TODO: Investigate ? */
+  accessToken: string
 
   /**
    * A token that is probably used nowhere ?

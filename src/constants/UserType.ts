@@ -1,4 +1,4 @@
-export const EDUserType = {
+export const EdUserType = {
   1: "famille",
   2: "famille",
   E: "eleve",
