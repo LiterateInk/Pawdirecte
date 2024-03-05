@@ -12,6 +12,7 @@ This is currently a work in progress project, come back later !
 
 Without those people / projects, this library wouldn't be here.
 
-- [CriosChan](https://github.com/crioschan) for letting me ([Vexcited](https://github.com/Vexcited)) use his account to experience with ED's API ;
 - [EduWireApps' API docs](https://github.com/EduWireApps/ecoledirecte-api-docs) ;
-- [EcoleDirecte](https://www.ecoledirecte.com/) for creating this app and API !
+- `@vpuedro` (on Discord) who told me a token authentication method was possible ;
+- [CriosChan](https://github.com/crioschan) for letting me ([Vexcited](https://github.com/Vexcited)) use his account to experiment with ED's API ;
+- [EcoleDirecte](https://www.ecoledirecte.com/)
