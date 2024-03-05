@@ -5,7 +5,13 @@ import { ExampleCredentialsError, credentials } from "./_credentials";
   // Check the credentials.
   if (!credentials.student_username || !credentials.student_password) throw new ExampleCredentialsError("student");
 
-  const session = await initWithCredentials(credentials.student_username, credentials.student_password);
+  const session = await initWithCredentials({
+    deviceUUID: "your-device-uuid",
+
+    username: credentials.student_username,
+    password: credentials.student_password
+  });
+
   const student = session.clients[0]; // We get the first account registered.
 
   // We can check the instance of the returned client to be sure we have a student account.

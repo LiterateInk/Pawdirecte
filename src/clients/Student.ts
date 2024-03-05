@@ -1,4 +1,6 @@
 import type { EdApiAccount } from "~/ecoledirecte/account";
+import type { EDClientsManagerSignals } from "~/clients/Manager";
+import type { EdUserType } from "~/constants/UserType";
 import { defaultEDFetcher } from "~/utils/fetcher";
 
 // API callers
@@ -6,72 +8,82 @@ import { callApiStudentTimeline } from "~/api/student/timeline";
 import { callApiEdforms } from "~/api/edforms";
 import { callApiStudentVisios } from "~/api/student/visios";
 import { callApiStudentTimetable } from "~/api/student/timetable";
+import { callApiLogin } from "~/api/login";
 
 // Response Parsers
 import TimelineItem from "~/parsers/TimelineItem";
 import TimetableItem from "~/parsers/TimetableItem";
-import { EdUserType } from "~/constants/UserType";
-import { callApiLogin } from "~/api/login";
 
 class EDStudent {
   #uuid: string;
+
   #token: () => string;
   #setToken: (newToken: string) => void;
-  #accessToken: string;
-
-  public id: string;
-  public firstName: string;
-  public lastName: string;
-  public schoolName: string;
-  public schoolRNE: string;
-  public profilePictureURL: string;
-
-  /**
-   * - M for Male
-   * - F for Female
-   *
-   * Not sure if there's any other gender defined here.
-   */
-  public gender: "M" | "F";
-
-  public accountType: keyof typeof EdUserType;
-  public username: string;
+  #account: () => EdApiAccount;
+  #setAccounts: (newAccounts: EdApiAccount[]) => void;
 
   constructor (
     uuid: string,
-    [token, setToken]: readonly [() => string, (newToken: string) => void],
-    account: EdApiAccount,
+    signals: EDClientsManagerSignals,
     public fetcher = defaultEDFetcher
   ) {
     this.#uuid = uuid;
-    this.#token = token;
-    this.#setToken = setToken;
 
-    this.id = account.id.toString();
-    this.firstName = account.prenom;
-    this.lastName = account.nom;
-    this.schoolName = account.nomEtablissement;
-    this.schoolRNE = account.profile.rneEtablissement;
-    this.profilePictureURL = "https:" + account.profile.photo;
+    this.#token = signals.token[0];
+    this.#setToken = signals.token[1];
 
-    // Use the `civilite` to define the gender otherwise.
-    this.gender = (typeof account.profile.sexe !== "undefined" && account.profile.sexe !== null)
-      ? account.profile.sexe
-      : account.civilite === "Mme" ? "F" : "M";
-
-    this.accountType = account.typeCompte;
-    this.username = account.identifiant;
-    this.#accessToken = account.accessToken;
+    this.#account = signals.accounts[0];
+    this.#setAccounts = signals.accounts[1];
   }
 
-  public get token (): string {
-    return this.#token();
+  public get id (): number {
+    return this.#account().id;
+  }
+
+  public get firstName (): string {
+    return this.#account().prenom;
+  }
+
+  public get lastName (): string {
+    return this.#account().nom;
+  }
+
+  public get schoolName (): string {
+    return this.#account().nomEtablissement;
+  }
+
+  public get schoolRNE (): string {
+    return this.#account().profile.rneEtablissement;
+  }
+
+  public get profilePictureURL (): string {
+    return "https:" + this.#account().profile.photo;
+  }
+
+  public get gender (): "M" | "F" {
+    const account = this.#account();
+
+    return (typeof account.profile.sexe !== "undefined" && account.profile.sexe !== null)
+      ? account.profile.sexe
+      : account.civilite === "Mme" ? "F" : "M";
+  }
+
+  public get accountType (): keyof typeof EdUserType {
+    return this.#account().typeCompte;
+  }
+
+  public get username (): string {
+    return this.#account().identifiant;
+  }
+
+  get #accessToken (): string {
+    return this.#account().accessToken;
   }
 
   public async getTimeline (): Promise<TimelineItem[]> {
     const response = await callApiStudentTimeline(this.fetcher, {
-      token: this.token,
-      studentID: this.id
+      token: this.#token(),
+      studentID: this.id.toString()
     });
 
     this.#setToken(response.token);
@@ -80,8 +92,8 @@ class EDStudent {
 
   public async getEdforms () {
     const response = await callApiEdforms(this.fetcher, {
-      token: this.token,
-      id: this.id
+      token: this.#token(),
+      id: this.id.toString()
     });
 
     this.#setToken(response.token);
@@ -90,8 +102,8 @@ class EDStudent {
 
   public async getVisios () {
     const response = await callApiStudentVisios(this.fetcher, {
-      token: this.token,
-      studentID: this.id
+      token: this.#token(),
+      studentID: this.id.toString()
     });
 
     this.#setToken(response.token);
@@ -106,8 +118,8 @@ class EDStudent {
     const response = await callApiStudentTimetable(this.fetcher, {
       startDate: from,
       endDate: to,
-      studentID: this.id,
-      token: this.token
+      studentID: this.id.toString(),
+      token: this.#token()
     });
 
     this.#setToken(response.token);
@@ -120,12 +132,12 @@ class EDStudent {
       accountType: this.accountType,
       username: this.username,
       deviceUUID: this.#uuid,
-      managerToken: this.token,
+      managerToken: this.#token(),
       accessToken: this.#accessToken
     });
 
-    // TODO: Update manager data.
     this.#setToken(session.token);
+    this.#setAccounts(session.data.accounts);
   }
 }
 

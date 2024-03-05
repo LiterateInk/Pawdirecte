@@ -9,40 +9,67 @@ export interface EDClientsManagerExported {
   accounts: EdApiAccount[]
 }
 
+export interface EDClientsManagerSignals {
+  token: [() => string, (newToken: string) => void];
+  /**
+   * @remark The getter of this gives directly the account of the user,
+   * while the setter sets **every**
+  */
+  accounts: [() => EdApiAccount, (newAccounts: EdApiAccount[]) => void];
+}
+
 class EDClientsManager {
   #clients: EDClient[] = [];
 
   #token: string;
+  #accounts: Record<string, EdApiAccount>;
+
   readonly #uuid: string;
-  readonly #accounts: EdApiAccount[];
+
+  /**
+   * Helper to map the accounts array into a object
+   * containing the ID as key and the account as value.
+   *
+   * Provides a easier getter for the signals given
+   * to the clients.
+   */
+  #mapAccountsToObject (receivedAccounts: EdApiAccount[]) {
+    const accounts: Record<string, EdApiAccount> = {};
+
+    for (const account of receivedAccounts) {
+      accounts[account.id] = account;
+    }
+
+    return accounts;
+  }
 
   constructor (
+    uuid: string,
     token: string,
     accounts: EdApiAccount[],
-    uuid: string,
     public fetcher = defaultEDFetcher
   ) {
     this.#uuid = uuid;
+
     this.#token = token;
-    this.#accounts = accounts;
+    this.#accounts = this.#mapAccountsToObject(accounts);
 
-    // A signal allowing to read the latest token value
-    // and update it for each clients.
-    const tokenSignal = [
-      // Getter
+    const tokenSignal: EDClientsManagerSignals["token"] = [
       () => this.#token,
-      // Setter
       (newToken: string) => (this.#token = newToken)
-    ] as const;
+    ];
 
-    this.#clients = accounts.map((account, index) => {
+    this.#clients = accounts.map((account) => {
+      const signals: EDClientsManagerSignals = {
+        token: tokenSignal,
+        accounts: [
+          () => this.#accounts[account.id],
+          (accounts: EdApiAccount[]) => (this.#accounts = this.#mapAccountsToObject(accounts))
+        ]
+      };
+
       // We only have the student wrapper for now, so don't write any check.
-      return new EDStudent(
-        this.#uuid,
-        tokenSignal,
-        account,
-        this.fetcher
-      );
+      return new EDStudent(this.#uuid, signals, this.fetcher);
     });
   }
 
@@ -57,7 +84,7 @@ class EDClientsManager {
   public createManagerExport (): EDClientsManagerExported {
     return {
       token: this.#token,
-      accounts: this.#accounts
+      accounts: Object.values(this.#accounts)
     };
   }
 

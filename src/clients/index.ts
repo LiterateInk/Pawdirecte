@@ -33,7 +33,7 @@ export const initWithCredentials = async (options: {
   const token = response.token;
   const accounts = response.data.accounts;
 
-  return new EDClientsManager(token, accounts, options.deviceUUID, fetcher);
+  return new EDClientsManager(options.deviceUUID, token, accounts, fetcher);
 };
 
 /**
@@ -46,5 +46,5 @@ export const initWithExportedData = (options: {
   fetcher?: EDFetcher
 }): EDClientsManager => {
   const fetcher = options.fetcher ?? defaultEDFetcher;
-  return new EDClientsManager(options.data.token, options.data.accounts, options.deviceUUID, fetcher);
+  return new EDClientsManager(options.deviceUUID, options.data.token, options.data.accounts, fetcher);
 };

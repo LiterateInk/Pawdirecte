@@ -7,6 +7,7 @@ import { ExampleCredentialsError, credentials } from "./_credentials";
 
   // Check the credentials provided in `.env`
   if (!credentials.student_username || !credentials.student_password) throw new ExampleCredentialsError("student");
+  console.info("Initializing a session using credentials...");
 
   let session = await initWithCredentials({
     deviceUUID: uuid,
@@ -22,9 +23,8 @@ import { ExampleCredentialsError, credentials } from "./_credentials";
   // Grab the first account, and show some information.
   let user = session.clients[0];
   console.log("Logged in to", user.firstName, user.lastName, "from", user.schoolName);
-  console.log("Currently using the following token", user.token);
 
-  // Create a recovery, to be used to reconnect !
+  // Create a recovery, used to reconnect !
   const exported = session.createManagerExport();
 
   // Initialize another session using the exported data.
@@ -40,9 +40,9 @@ import { ExampleCredentialsError, credentials } from "./_credentials";
   user = session.clients[0];
 
   // Force a token renewal.
+  console.info("Forcing a renewal of the token.");
   await user.renewToken();
 
   // Show again the information, and the new token.
   console.log("Re-logged in to", user.firstName, user.lastName, "from", user.schoolName);
-  console.log("Renewed with the following token", user.token);
 })();
