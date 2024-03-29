@@ -35,24 +35,11 @@ export type EDFetcher = (url: string, options: {
   json: <T>() => Promise<T>
 }>;
 
-/** @see https://www.whatismybrowser.com/guides/the-latest-user-agent/chrome */
-const DEFAULT_USER_AGENT = "EDMOBILE";
-
 /**
  * Simple and default fetcher using `fetch` if none was given
  * in the authentication function.
  */
 export const defaultEDFetcher: EDFetcher = async (url, options) => {
-  if (options.headers instanceof Headers) { // use the builtin `set` method.
-    options.headers.set("User-Agent", DEFAULT_USER_AGENT);
-  }
-  else { // use the default header.
-    options.headers = {
-      ...options.headers,
-      "User-Agent": DEFAULT_USER_AGENT
-    };
-  }
-
   const response = await fetch(url, {
     method: options.method,
     headers: options.headers,

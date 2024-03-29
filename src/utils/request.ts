@@ -70,7 +70,7 @@ export const makeApiRequest = async <
     url.searchParams.set(key, value);
   }
 
-  const headers: Record<string, string> = {};
+  const headers: Record<string, string> = { "User-Agent": "EDMOBILE" };
   if (init.token) headers["X-Token"] = init.token;
 
   let body: string | undefined;
