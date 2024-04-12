@@ -37,7 +37,7 @@ export const makeApiRequest = async <
    * Not all though, so we don't use it as default.
    */
   additionalSearchParams?: {
-    verbe?: "list" | "get"
+    verbe?: "list" | "get" | "post"
     [key: string]: string | undefined
   }
 
@@ -52,7 +52,7 @@ export const makeApiRequest = async <
    * When downloading binaries, we should use `text`.
    */
   responseType?: ResponseType
-}): Promise<(ResponseType extends "json" ? Api["response"] : string) | EdApiResponseError<Api["errors"]>> => {
+}): Promise<{ data: (ResponseType extends "json" ? Api["response"] : string) | EdApiResponseError<Api["errors"]>, token: string }> => {
   const url = new URL(`${API_URL}${init.path}`);
   const searchParamsAsObject: Record<string, string | undefined> = {
     ...init.additionalSearchParams,
@@ -85,9 +85,11 @@ export const makeApiRequest = async <
     body
   });
 
+  const token = (response.headers instanceof Headers ? response.headers.get("X-Token") : response.headers["X-Token"]) || init.token || "";
+
   if (init.responseType && init.responseType === "text") {
-    return response.text();
+    return { token, data: await response.text() };
   }
 
-  return response.json();
+  return { token, data: await response.json() };
 };

@@ -4,7 +4,7 @@ import { makeApiHandler } from "~/utils/api";
 import { makeApiRequest } from "~/utils/request";
 
 export const callApiStudentTimetable = makeApiHandler<EdStudentTimetable>(async (fetcher, input) => {
-  const json = await makeApiRequest<EdApiStudentTimetable>(fetcher, {
+  const { data: json } = await makeApiRequest<EdApiStudentTimetable>(fetcher, {
     path: `/E/${input.studentID}/emploidutemps.awp`,
     token: input.token,
     additionalSearchParams: {

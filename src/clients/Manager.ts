@@ -1,12 +1,20 @@
+import type { EdApiDoubleAuthValues } from "~/constants/auth";
 import type { EdApiAccount } from "~/ecoledirecte/account";
 import type { EDClient } from "~/clients";
 
 import { defaultEDFetcher } from "~/utils/fetcher";
 import EDStudent from "~/clients/Student";
 
+import { callApiDoubleAuth } from "~/api/doubleauth";
+import { callApiConfirmDoubleAuth } from "~/api/confirm-doubleauth";
+import { callApiLogin } from "~/api/login";
+
 export interface EDClientsManagerExported {
   token: string
-  accounts: EdApiAccount[]
+  /**
+   * `null` when double authentication is required.
+   */
+  accounts: EdApiAccount[] | null
 }
 
 export interface EDClientsManagerSignals {
@@ -19,12 +27,16 @@ export interface EDClientsManagerSignals {
 }
 
 class EDClientsManager {
+  readonly #uuid: string;
+
   #clients: EDClient[] = [];
+  #accounts: Record<string, EdApiAccount> | null = null;
 
   #token: string;
-  #accounts: Record<string, EdApiAccount>;
-
-  readonly #uuid: string;
+  readonly #tokenSignal: EDClientsManagerSignals["token"] = [
+    () => this.#token,
+    (newToken: string) => (this.#token = newToken)
+  ];
 
   /**
    * Helper to map the accounts array into a object
@@ -43,27 +55,12 @@ class EDClientsManager {
     return accounts;
   }
 
-  constructor (
-    uuid: string,
-    token: string,
-    accounts: EdApiAccount[],
-    public fetcher = defaultEDFetcher
-  ) {
-    this.#uuid = uuid;
-
-    this.#token = token;
-    this.#accounts = this.#mapAccountsToObject(accounts);
-
-    const tokenSignal: EDClientsManagerSignals["token"] = [
-      () => this.#token,
-      (newToken: string) => (this.#token = newToken)
-    ];
-
-    this.#clients = accounts.map((account) => {
+  #mapAccountsToClients (receivedAccounts: EdApiAccount[]) {
+    return receivedAccounts.map((account) => {
       const signals: EDClientsManagerSignals = {
-        token: tokenSignal,
+        token: this.#tokenSignal,
         accounts: [
-          () => this.#accounts[account.id],
+          () => this.#accounts![account.id],
           (accounts: EdApiAccount[]) => (this.#accounts = this.#mapAccountsToObject(accounts))
         ]
       };
@@ -71,6 +68,31 @@ class EDClientsManager {
       // We only have the student wrapper for now, so don't write any check.
       return new EDStudent(this.#uuid, signals, this.fetcher);
     });
+  }
+
+  #initAccounts (accounts: EdApiAccount[] | null): void {
+    // Check if we given an array and not `null`.
+    if (Array.isArray(accounts)) {
+      this.#accounts = this.#mapAccountsToObject(accounts);
+      this.#clients = this.#mapAccountsToClients(accounts);
+    }
+    else { // reset to default values.
+      this.#accounts = null;
+      this.#clients = [];
+    }
+  }
+
+  constructor (
+    uuid: string,
+    token: string,
+    /** `null` when double authentication is required. */
+    accounts: EdApiAccount[] | null,
+    public fetcher = defaultEDFetcher
+  ) {
+    this.#uuid = uuid;
+    this.#token = token;
+
+    this.#initAccounts(accounts);
   }
 
   /**
@@ -84,7 +106,7 @@ class EDClientsManager {
   public createManagerExport (): EDClientsManagerExported {
     return {
       token: this.#token,
-      accounts: Object.values(this.#accounts)
+      accounts: this.#accounts === null ? null : Object.values(this.#accounts)
     };
   }
 
@@ -94,6 +116,44 @@ class EDClientsManager {
 
   public get token (): string {
     return this.#token;
+  }
+
+  public get requiresDoubleAuthentication (): boolean {
+    return this.#accounts === null;
+  }
+
+  public async getDoubleAuthenticationQCM () {
+    const { token, ...response } = await callApiDoubleAuth(this.fetcher, {
+      token: this.#token
+    });
+
+    this.#token = token;
+    return response;
+  }
+
+  public async replyDoubleAuthenticationQCM (choice: string): Promise<EdApiDoubleAuthValues> {
+    const { token, values } = await callApiConfirmDoubleAuth(this.fetcher, {
+      choice,
+      token: this.#token
+    });
+
+    this.#token = token;
+    return values;
+  }
+
+  public async renewAuthentication (username: string, password: string, doubleAuthValues?: EdApiDoubleAuthValues): Promise<void> {
+    const response = await callApiLogin(this.fetcher, {
+      doubleAuth: doubleAuthValues,
+
+      deviceUUID: this.#uuid,
+      username: username,
+
+      recovery: false,
+      password: password
+    });
+
+    this.#token = response.token;
+    this.#initAccounts(response.data.accounts);
   }
 }
 

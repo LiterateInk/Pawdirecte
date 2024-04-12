@@ -30,10 +30,13 @@ export const initWithCredentials = async (options: {
     password: options.password
   });
 
-  const token = response.token;
-  const accounts = response.data.accounts;
-
-  return new EDClientsManager(options.deviceUUID, token, accounts, fetcher);
+  return new EDClientsManager(
+    options.deviceUUID,
+    response.token,
+    // When we require double authentication (code = 250), we give `null`.
+    response.code === 250 ? null : response.data.accounts,
+    fetcher
+  );
 };
 
 /**

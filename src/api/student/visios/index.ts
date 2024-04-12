@@ -4,7 +4,7 @@ import { makeApiHandler } from "~/utils/api";
 import { makeApiRequest } from "~/utils/request";
 
 export const callApiStudentVisios = makeApiHandler<EdStudentVisios>(async (fetcher, input) => {
-  const json = await makeApiRequest<EdApiStudentVisios>(fetcher, {
+  const { data: json } = await makeApiRequest<EdApiStudentVisios>(fetcher, {
     path: `/eleves/${input.studentID}/visios.awp`,
     token: input.token,
     additionalSearchParams: {

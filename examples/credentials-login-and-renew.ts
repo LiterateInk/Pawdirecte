@@ -20,6 +20,23 @@ import { ExampleCredentialsError, credentials } from "./_credentials";
     fetcher: defaultEDFetcher
   });
 
+  if (session.requiresDoubleAuthentication) {
+    const qcm = await session.getDoubleAuthenticationQCM();
+    console.info("Double authentication required.");
+    console.info("Reply to this question:", qcm.question);
+
+    for (const index in qcm.answers) {
+      console.info(`[${index}]`, qcm.answers[index]);
+    }
+
+    const answer = prompt("Answer the question by providing the index of the answer :");
+    if (!answer) throw new Error("No answer provided.");
+
+    // Answer the question.
+    const values = await session.replyDoubleAuthenticationQCM(qcm.answers[parseInt(answer, 10)]);
+    await session.renewAuthentication(credentials.student_username, credentials.student_password, values);
+  }
+
   // Grab the first account, and show some information.
   let user = session.clients[0];
   console.log("Logged in to", user.firstName, user.lastName, "from", user.schoolName);

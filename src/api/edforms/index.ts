@@ -4,7 +4,7 @@ import { makeApiHandler } from "~/utils/api";
 import { makeApiRequest } from "~/utils/request";
 
 export const callApiEdforms = makeApiHandler<EdEdforms>(async (fetcher, input) => {
-  const json = await makeApiRequest<EdApiEdforms>(fetcher, {
+  const { data: json } = await makeApiRequest<EdApiEdforms>(fetcher, {
     path: "/edforms.awp",
     token: input.token,
     additionalSearchParams: {
