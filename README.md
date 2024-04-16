@@ -1,8 +1,11 @@
 # Pawdirecte
 
-A simple wrapper around Aplim's EcoleDirecte internal API.
+A simple wrapper around [Aplim's EcoleDirecte](https://www.aplim.fr/EcoleDirecte) internal API.
 
-> **Note**: This project is not affiliated with Aplim or EcoleDirecte in any way.
+> [!NOTE]
+> This project is not affiliated with Aplim or EcoleDirecte in any way.
+
+> Join [LiterateInk's Discord server](https://discord.gg/f5KNCnMWzB) to talk about Pawdirecte, get help and be notified about the latest updates !
 
 ## Installation
 
