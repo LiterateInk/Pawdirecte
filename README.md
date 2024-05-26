@@ -18,7 +18,7 @@ This is currently a work in progress project, come back later !
 
 ## Get help
 
-Join [LiterateInk's Discord server](https://discord.gg/f5KNCnMWzB) to talk about Pawnote, get help and be notified about the latest updates !
+Join [LiterateInk's Discord server](https://discord.gg/f5KNCnMWzB) to talk about Pawdirecte, get help and be notified about the latest updates !
 
 ## Credits
 
