@@ -14,11 +14,30 @@ Pawdirecte is a simple wrapper around [Aplim's EcoleDirecte](https://www.aplim.f
 
 ## Installation
 
-This is currently a work in progress project, come back later !
+Use your favorite package manager to install [Pawdirecte from NPM](https://www.npmjs.com/package/pawdirecte).
+
+```bash
+# pnpm
+pnpm add pawdirecte
+
+# Yarn
+yarn add pawdirecte
+
+# npm
+npm install pawdirecte
+```
 
 ## Get help
 
-Join [LiterateInk's Discord server](https://discord.gg/f5KNCnMWzB) to talk about Pawdirecte, get help and be notified about the latest updates !
+Join [LiterateInk's Discord server](https://literate.ink/discord) to talk about Pawdirecte, get help and be notified about the latest updates !
+
+## Documentation & Guides
+
+You can find the documentation, some guides and small examples at [literate.ink/pawdirecte](https://literate.ink/pawdirecte) for more information about the API and how to use it.
+
+If you need complete examples, then we got **a lot** of those in the [`examples`](https://github.com/LiterateInk/Pawdirecte/tree/js/examples) folder, hoping you can find your joy in there.
+
+If none of those are helpful, you can always [open an issue](https://github.com/LiterateInk/Pawdirecte/issues) to ask for help.
 
 ## Credits
 
@@ -29,7 +48,3 @@ Without those people / projects, this library wouldn't be here.
 - `@vpuedro` (on Discord) who told me a token authentication method was possible ;
 - [CriosChan](https://github.com/crioschan) for helping in our experiments against ED's API ;
 - [EcoleDirecte](https://www.ecoledirecte.com/) for their app !
-
-## License
-
-This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
