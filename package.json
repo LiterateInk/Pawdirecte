@@ -2,6 +2,7 @@
   "name": "pawdirecte",
   "version": "0.0.0",
   "description": "A simple wrapper around Aplim's EcoleDirecte internal API.",
+  "repository": "github:LiterateInk/Pawdirecte",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -13,9 +14,9 @@
     }
   },
   "scripts": {
-    "build": "pnpm lint && tsup src/index.ts --dts --minify terser --clean --format cjs,esm --sourcemap",
+    "build": "tsup src/index.ts --dts --minify terser --clean --format cjs,esm --sourcemap",
     "release": "release-it",
-    "lint": "eslint .",
+    "lint": "tsc && eslint .",
     "tsx": "tsx"
   },
   "files": [
@@ -29,7 +30,11 @@
     "France"
   ],
   "author": "Mikkel RINGAUD <mikkel@milescode.dev> (https://github.com/Vexcited)",
-  "license": "MIT",
+  "homepage": "https://literate.ink/pawdirecte",
+  "bugs": {
+    "url": "https://github.com/LiterateInk/Pawdirecte/issues"
+  },
+  "license": "GPL-3.0",
   "engines": {
     "node": ">=18"
   },
@@ -37,12 +42,12 @@
     "git": {
       "commitMessage": "chore: release v${version}",
       "tagAnnotation": "Release v${version}",
-      "tagName": "v${version}"
+      "tagName": "js-v${version}"
     },
     "github": {
       "release": true,
       "draft": false,
-      "releaseName": "v${version}"
+      "releaseName": "js v${version}"
     },
     "npm": {
       "publish": true
