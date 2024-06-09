@@ -1,6 +1,6 @@
 {
   "name": "pawdirecte",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A simple wrapper around Aplim's EcoleDirecte internal API.",
   "repository": "github:LiterateInk/Pawdirecte",
   "main": "./dist/index.js",
