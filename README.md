@@ -1,7 +1,6 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/LiterateInk/Pawdirecte/index/.github/banners/dark.png">
-    <img alt="Pawdirecte" src="https://raw.githubusercontent.com/LiterateInk/Pawdirecte/index/.github/banners/light.png">
+    <img alt="Pawdirecte Banner" src="https://github.com/LiterateInk/Pawdirecte/blob/9c3f607793df810417834f6cfd1cfe43f2673296/.github/assets/readme.svg">
   </picture>
 </p>
 
