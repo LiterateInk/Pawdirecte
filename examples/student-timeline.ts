@@ -13,7 +13,7 @@ void async function main () {
     timeline.forEach((item) => {
       console.log("---");
 
-      console.log(item.title || "(no title)", `(${item.element.type} @ ${item.element.id})`);
+      console.log(item.title || "(no title)", `(${item.element_kind} @ ${item.element_id})`);
       console.log("Publish date:", item.date.toLocaleString());
       console.log("Description:", item.description || "(no description)");
 
