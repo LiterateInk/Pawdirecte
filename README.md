@@ -1,44 +1,27 @@
-<p align="center">
-  <picture>
-    <img alt="Pawdirecte Banner" src="https://github.com/LiterateInk/Pawdirecte/blob/9c3f607793df810417834f6cfd1cfe43f2673296/.github/assets/readme.svg">
-  </picture>
-</p>
+<img alt="Pawdirecte: A purrfect API wrapper for EcoleDirecte" src=".github/assets/banner.svg" width="100%" />
 
-[Aplim's EcoleDirecte](https://www.aplim.fr/EcoleDirecte) is an online platform used by schools to facilitate communication and administrative management. It gives teachers, students and parents access to information such as timetables, grades, absences, homework and messages. It simplifies day-to-day management and fosters greater collaboration between all stakeholders in the educational community.
+*This library **is not** affiliated with [Aplim](https://www.aplim.fr/) or [EcoleDirecte](https://www.aplim.fr/EcoleDirecte) in any way.*
 
-Pawdirecte is a simple wrapper around [Aplim's EcoleDirecte](https://www.aplim.fr/EcoleDirecte) internal API.
+## What is "EcoleDirecte" ?
 
-> [!NOTE]
-> This project is not affiliated with Aplim or EcoleDirecte in any way.
+[EcoleDirecte](https://www.aplim.fr/EcoleDirecte) is an online platform used by schools to facilitate communication and administrative management. It gives teachers, students and parents access to information such as timetables, grades, absences, homework and messages.
 
-## Supported languages
+## Implementations
 
 You're currently on the `index` branch.
-Since we're implementing Pawdirecte in different languages, we have a branch for each language.
 
-- [JavaScript / TypeScript](https://github.com/LiterateInk/Pawdirecte/tree/js) (base implementation)
-- [Dart](https://github.com/LiterateInk/Pawdirecte/tree/dart) (not started)
+Since we're implementing this library in different programming languages, we have a branch for each of them.
 
-## Documentation
+| [JS/TS](https://github.com/LiterateInk/Pawdirecte/tree/js) | Rust | Python | Swift |
+| :---:  | :---: | :---: | :---: |
+| Kotlin | C#    |       |       |
 
-For now, since we're still in the early stages of development, the documentation is not available yet.
+## Acknowledgements
 
-You might go look at the examples for the language you want to use for now.
-
-## Get help
-
-Join [LiterateInk's Discord server](https://literate.ink/discord) to talk about Pawdirecte, get help and be notified about the latest updates !
-
-## Credits
-
-Without those people / projects, this library wouldn't be here.
-
-- [EduWireApps' API docs](https://github.com/EduWireApps/ecoledirecte-api-docs) ;
-- [Azgar](https://github.com/azgaresncf)'s [ED API docs](https://github.com/azgaresncf/ecoledirecte) forked from [EduWireApps](https://github.com/EduWireApps) ;
-- `@vpuedro` (on Discord) who told me a token authentication method was possible ;
-- [CriosChan](https://github.com/crioschan) for helping in our experiments against ED's API ;
-- [EcoleDirecte](https://www.ecoledirecte.com/) for their app !
+- [EduWireApps' EcoleDirecte API documentation](https://github.com/EduWireApps/ecoledirecte-api-docs)
+- [Azgar](https://github.com/azgaresncf)'s [documentation](https://github.com/azgaresncf/ecoledirecte)
+- [CriosChan](https://github.com/crioschan) for helping in our experiments against EcoleDirecte's API
 
 ## License
 
-This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPL-3.0-or-later License - see the [LICENSE](LICENSE) file for details.

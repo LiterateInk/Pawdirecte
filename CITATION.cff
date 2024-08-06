@@ -6,15 +6,14 @@ message: >-
 type: software
 authors:
   - given-names: Mikkel
-    family-names: RINGAUD
-    email: mikkel@milescode.dev
+    family-names: ALMONTE--RINGAUD
+    email: vexitofficial@gmail.com
 repository-code: 'https://github.com/LiterateInk/Pawdirecte'
-url: 'https://literate.ink/pawdirecte'
+url: 'https://docs.literate.ink/pawdirecte'
 abstract: >-
-  A simple wrapper around Aplim's EcoleDirecte internal
-  API.
+  A purrfect API wrapper for EcoleDirecte
 keywords:
   - ecoledirecte
   - wrapper
   - api
-license: GPL-3.0
+license: GPL-3.0-or-later
