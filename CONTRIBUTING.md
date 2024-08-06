@@ -1,14 +1,27 @@
 # Contributing
 
-## Publishing
+## Development
 
-Currently using `release-it` to publish manually the library to [NPM](https://npmjs.com/).
+To start developing, clone the repository and install the dependencies.
 
 ```bash
-# Requirements in case you don't have them.
-npm login
-npm install --global pnpm && pnpm install
+# Clone the repository.
+git clone https://github.com/LiterateInk/Pawdirecte && cd Pawdirecte
+# Switch to the JS/TS implementation branch.
+git checkout js
+# Install dependencies.
+pnpm install
+```
 
-# Run the following command to publish the library.
+> In case you don't have `pnpm` installed, you can install it by running `npm install --global pnpm`.
+
+## Release
+
+Currently using `release-it` to create a tag and GitHub release.
+
+```bash
+# Create a new release.
 pnpm release
 ```
+
+An action will automatically publish the package to NPM when a tag is pushed to the repository.
