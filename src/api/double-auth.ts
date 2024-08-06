@@ -1,8 +1,7 @@
 import { BadCredentials, SessionTokenRequired, type DoubleAuthChallenge, type Session } from "~/models";
-import { encodeRequestFormData, encodeRequestToken, encodeRequestUrlVersion, encodeRequest } from "~/encoders/request";
-import { encodeEDResponse } from "~/encoders/ed-response";
 import { decodeDoubleAuthChallenge } from "~/decoders/double-auth-challenge";
 import { decodeDoubleAuth } from "~/decoders/double-auth";
+import { Request } from "~/core/request";
 
 import { btoa } from "js-base64";
 
@@ -10,14 +9,12 @@ export async function initDoubleAuth (session: Session): Promise<DoubleAuthChall
   if (!session.token)
     throw new SessionTokenRequired();
 
-  const request = encodeRequest("/connexion/doubleauth.awp?verbe=get");
-  encodeRequestUrlVersion(request);
+  const request = new Request("/connexion/doubleauth.awp?verbe=get")
+    .addVersionURL()
+    .setToken(session.token)
+    .setFormData({});
 
-  encodeRequestToken(request, session.token);
-  encodeRequestFormData(request, {});
-
-  const raw_response = await session.fetcher(request);
-  const response = encodeEDResponse(raw_response);
+  const response = await request.send(session.fetcher);
 
   if (!response.token)
     throw new BadCredentials();
@@ -30,16 +27,14 @@ export async function checkDoubleAuth (session: Session, answer: string): Promis
   if (!session.token)
     throw new SessionTokenRequired();
 
-  const request = encodeRequest("/connexion/doubleauth.awp?verbe=post");
-  encodeRequestUrlVersion(request);
+  const request = new Request("/connexion/doubleauth.awp?verbe=post")
+    .addVersionURL()
+    .setToken(session.token)
+    .setFormData({
+      choix: btoa(answer)
+    });
 
-  encodeRequestToken(request, session.token);
-  encodeRequestFormData(request, {
-    choix: btoa(answer)
-  });
-
-  const raw_response = await session.fetcher(request);
-  const response = encodeEDResponse(raw_response);
+  const response = await request.send(session.fetcher);
 
   session.token = response.token;
   session.double_auth = decodeDoubleAuth(response.data);

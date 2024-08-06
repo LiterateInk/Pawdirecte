@@ -1,11 +1,11 @@
 import { BadDoubleAuth, DoubleAuth } from "~/models";
 
-export function decodeDoubleAuth (content: Record<string, unknown>): DoubleAuth {
-  if (content === null)
+export function decodeDoubleAuth (double_auth: any): DoubleAuth {
+  if (double_auth === null)
     throw new BadDoubleAuth();
 
   return new DoubleAuth(
-    content["cn"] as string,
-    content["cv"] as string
+    double_auth.cn,
+    double_auth.cv
   );
 };

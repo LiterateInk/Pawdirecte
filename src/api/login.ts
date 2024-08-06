@@ -1,5 +1,3 @@
-import type { Request, Response } from "@literate.ink/utilities";
-
 import {
   type Session,
   type AccountKind,
@@ -11,27 +9,22 @@ import {
   InvalidVersion
 } from "~/models";
 
-import { encodeRequestFormData, encodeRequestToken, encodeRequestUrlVersion, encodeRequest } from "~/encoders/request";
 import { encodeDoubleAuth } from "~/encoders/double-auth";
-import { encodeEDResponse } from "~/encoders/ed-response";
 import { decodeAccount } from "~/decoders/account";
+import { Request } from "~/core/request";
 
-/**
- * Creates the base request for login
- * and refresh since they both have
- * a similar structure.
- */
-function initBaseRequest (body: Record<string, unknown>, token: string | null = null): Request {
-  const request = encodeRequest("/login.awp");
-  encodeRequestUrlVersion(request);
-  encodeRequestFormData(request, body);
-  if (token) encodeRequestToken(request, token);
+function init (body: Record<string, unknown>, token: string | null = null): Request {
+  const request = new Request("/login.awp")
+    .addVersionURL()
+    .setFormData(body);
+
+  if (token) request.setToken(token);
   return request;
 };
 
 export async function login (session: Session, password: string): Promise<Array<Account>> {
   const encoded_double_auth = encodeDoubleAuth(session.double_auth);
-  const request = initBaseRequest({
+  const request = init({
     ...encoded_double_auth,
     fa: encoded_double_auth && [encoded_double_auth],
 
@@ -42,15 +35,14 @@ export async function login (session: Session, password: string): Promise<Array<
     motdepasse: password
   }, session.token);
 
-  const response = await session.fetcher(request);
-  return parseResponse(session, response);
+  return pipe(session, request);
 }
 
 export async function refresh (session: Session, account_token: string, account_kind: AccountKind): Promise<Array<Account>> {
   if (!session.token)
     throw new SessionTokenRequired();
 
-  const request = initBaseRequest({
+  const request = init({
     fa: [encodeDoubleAuth(session.double_auth)],
 
     identifiant: session.username,
@@ -61,12 +53,11 @@ export async function refresh (session: Session, account_token: string, account_
     accesstoken: account_token
   }, session.token);
 
-  const response = await session.fetcher(request);
-  return parseResponse(session, response);
+  return pipe(session, request);
 }
 
-export function parseResponse (session: Session, raw_response: Response): Array<Account> {
-  const response = encodeEDResponse(raw_response);
+async function pipe (session: Session, request: Request): Promise<Array<Account>> {
+  const response = await request.send(session.fetcher);
   session.token = response.token;
 
   switch (response.status) {

@@ -1,18 +1,18 @@
 import { TimetableItem } from "~/models";
 
-export function decodeTimetableItem (content: any): TimetableItem {
+export function decodeTimetableItem (item: any): TimetableItem {
   return new TimetableItem(
-    content.id,
-    content.color,
-    new Date(content.start_date),
-    new Date(content.end_date),
-    content.matiere,
-    content.codeMatiere,
-    content.salle,
-    content.prof,
-    content.typeCours,
-    content.isAnnule,
-    content.isModifie,
-    content.text
+    item.id,
+    item.color,
+    new Date(item.start_date),
+    new Date(item.end_date),
+    item.matiere,
+    item.codeMatiere,
+    item.salle,
+    item.prof,
+    item.typeCours,
+    item.isAnnule,
+    item.isModifie,
+    item.text
   );
 }

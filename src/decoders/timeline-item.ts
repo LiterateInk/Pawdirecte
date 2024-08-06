@@ -1,13 +1,13 @@
 import { TimelineItem } from "~/models";
 
-export function decodeTimelineItem (content: any): TimelineItem {
+export function decodeTimelineItem (item: any): TimelineItem {
   return new TimelineItem(
-    content.titre,
-    content.soustitre,
-    content.contenu,
-    content.idElement,
+    item.titre,
+    item.soustitre,
+    item.contenu,
+    item.idElement,
     // (as enum value directly)
-    content.typeElement,
-    new Date(content.date)
+    item.typeElement,
+    new Date(item.date)
   );
 }

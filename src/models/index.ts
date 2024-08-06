@@ -8,7 +8,6 @@ export * from "./account-kind";
 export * from "./account";
 export * from "./double-auth-challenge";
 export * from "./double-auth";
-export * from "./ed-response";
 export * from "./session";
 export * from "./timeline-item-kind";
 export * from "./timeline-item";
