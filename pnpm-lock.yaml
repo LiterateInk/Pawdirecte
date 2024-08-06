@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@literate.ink/utilities':
+        specifier: 1.0.0-10253778099.1
+        version: 1.0.0-10253778099.1
       js-base64:
         specifier: ^3.7.7
         version: 3.7.7
@@ -255,6 +258,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.22':
     resolution: {integrity: sha512-Wf963MzWtA2sjrNt+g18IAln9lKnlRp+K2eH4jjIoF1wYeq3aMREpG09xhlhdzS0EjwU7qmUJYangWa+151vZw==}
+
+  '@literate.ink/utilities@1.0.0-10253778099.1':
+    resolution: {integrity: sha512-zaPmzdal5gwSRff1Y0aXsrSZTM48RJrZPjCTHv0mNzFosaD8Eewbm3H0k2tkml8BDCdWhqjTUJuX0v2lCvYbxg==}
 
   '@ljharb/through@2.3.12':
     resolution: {integrity: sha512-ajo/heTlG3QgC8EGP6APIejksVAYt4ayz4tqoP3MolFELzcH1x1fzwEYRJTPO0IELutZ5HQ0c26/GqAYy79u3g==}
@@ -1903,6 +1909,9 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  set-cookie-parser@2.7.0:
+    resolution: {integrity: sha512-lXLOiqpkUumhRdFF3k1osNXCy9akgx/dyPZ5p8qAg9seJzXr5ZrlqZuWIMuY6ejOsVLE6flJ5/h3lsn57fQ/PQ==}
+
   set-function-length@1.2.1:
     resolution: {integrity: sha512-j4t6ccc+VsKwYHso+kElc5neZpjtq9EnRICFZtWyBsLojhmeF/ZBd/elqm22WJh/BziDe/SBiOeAt0m2mfLD0g==}
     engines: {node: '>= 0.4'}
@@ -2414,6 +2423,10 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
+  '@literate.ink/utilities@1.0.0-10253778099.1':
+    dependencies:
+      set-cookie-parser: 2.7.0
+
   '@ljharb/through@2.3.12':
     dependencies:
       call-bind: 1.0.6
@@ -2620,6 +2633,7 @@ snapshots:
       '@typescript-eslint/visitor-keys': 6.21.0
       debug: 4.3.4
       eslint: 8.56.0
+    optionalDependencies:
       typescript: 5.3.3
     transitivePeerDependencies:
       - supports-color
@@ -2641,6 +2655,7 @@ snapshots:
       minimatch: 9.0.3
       semver: 7.5.4
       ts-api-utils: 1.2.1(typescript@5.3.3)
+    optionalDependencies:
       typescript: 5.3.3
     transitivePeerDependencies:
       - supports-color
@@ -2915,6 +2930,7 @@ snapshots:
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
+    optionalDependencies:
       typescript: 5.3.3
 
   cross-spawn@7.0.3:
@@ -4216,6 +4232,8 @@ snapshots:
     dependencies:
       lru-cache: 6.0.0
 
+  set-cookie-parser@2.7.0: {}
+
   set-function-length@1.2.1:
     dependencies:
       define-data-property: 1.1.2
@@ -4423,6 +4441,7 @@ snapshots:
       source-map: 0.8.0-beta.0
       sucrase: 3.35.0
       tree-kill: 1.2.2
+    optionalDependencies:
       typescript: 5.3.3
     transitivePeerDependencies:
       - supports-color
