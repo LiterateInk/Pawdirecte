@@ -1,6 +1,7 @@
+import { studentTimeline } from "../src";
+
 import { ExampleCredentialsError, credentials } from "./_credentials";
 import { loginUsingCredentials } from "./_login-using-crendentials";
-import { studentTimeline } from "../src";
 
 void async function main () {
   if (!credentials.student_username || !credentials.student_password)
