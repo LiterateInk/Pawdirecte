@@ -1,4 +1,5 @@
 export * from "./errors/bad-credentials";
+export * from "./errors/bad-double-auth";
 export * from "./errors/double-auth-required";
 export * from "./errors/invalid-version";
 export * from "./errors/session-token-required";
