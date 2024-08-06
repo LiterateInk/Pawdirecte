@@ -1,40 +1,35 @@
 {
   "name": "pawdirecte",
   "version": "0.1.0",
-  "description": "A simple wrapper around Aplim's EcoleDirecte internal API.",
-  "repository": "github:LiterateInk/Pawdirecte",
+  "description": "A purrfect API wrapper for EcoleDirecte.",
+  "repository": "https://github.com/LiterateInk/Pawdirecte",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
-    }
+    "types": "./dist/index.d.ts",
+    "require": "./dist/index.js",
+    "import": "./dist/index.mjs"
   },
   "scripts": {
     "build": "tsup src/index.ts --dts --minify terser --clean --format cjs,esm --sourcemap",
     "release": "release-it",
-    "lint": "tsc && eslint .",
-    "tsx": "tsx"
+    "lint": "tsc && eslint ."
   },
   "files": [
     "dist"
   ],
   "keywords": [
     "ecoledirecte",
-    "api",
     "wrapper",
-    "student",
-    "France"
+    "api"
   ],
-  "author": "Mikkel RINGAUD <mikkel@milescode.dev> (https://github.com/Vexcited)",
-  "homepage": "https://literate.ink/pawdirecte",
+  "author": "LiterateInk <contact@literate.ink> (https://literate.ink)",
+  "homepage": "https://docs.literate.ink/pawdirecte",
   "bugs": {
     "url": "https://github.com/LiterateInk/Pawdirecte/issues"
   },
-  "license": "GPL-3.0",
+  "license": "GPL-3.0-or-later",
   "engines": {
     "node": ">=18"
   },
@@ -58,19 +53,18 @@
     }
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin": "^1.6.1",
-    "@types/node": "^20.11.17",
-    "@typescript-eslint/parser": "^6.21.0",
-    "dotenv": "^16.4.2",
-    "eslint": "^8.56.0",
-    "release-it": "^17.0.3",
-    "terser": "^5.27.0",
-    "tsup": "^8.0.2",
-    "tsx": "^4.7.1",
-    "typescript": "^5.3.3"
+    "@stylistic/eslint-plugin": "^2.6.1",
+    "@types/node": "^20.14.14",
+    "@typescript-eslint/parser": "^8.0.1",
+    "dotenv": "^16.4.5",
+    "eslint": "^9.8.0",
+    "release-it": "^17.6.0",
+    "terser": "^5.31.3",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@literate.ink/utilities": "1.0.0-10253778099.1",
+    "@literate.ink/utilities": "latest",
     "js-base64": "^3.7.7"
   }
 }

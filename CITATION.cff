@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+title: Pawdirecte
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - name: LiterateInk
+    website: "https://literate.ink"
+    email: contact@literate.ink
+repository-code: 'https://github.com/LiterateInk/Pawdirecte'
+url: 'https://docs.literate.ink/pawdirecte'
+repository-artifact: 'https://www.npmjs.com/package/pawdirecte'
+abstract: >-
+  A purrfect API wrapper for EcoleDirecte.
+keywords:
+  - ecoledirecte
+  - wrapper
+  - api
+license: GPL-3.0-or-later 
