@@ -13,8 +13,14 @@ import {
 
 import { encodeRequestFormData, encodeRequestToken, encodeRequestUrlVersion, encodeRequest } from "~/encoders/request";
 import { encodeDoubleAuth } from "~/encoders/double-auth";
+import { encodeEDResponse } from "~/encoders/ed-response";
 import { decodeAccount } from "~/decoders/account";
 
+/**
+ * Creates the base request for login
+ * and refresh since they both have
+ * a similar structure.
+ */
 function initBaseRequest (body: Record<string, unknown>, token: string | null = null): Request {
   const request = encodeRequest("/login.awp");
   encodeRequestUrlVersion(request);
@@ -59,13 +65,11 @@ export async function refresh (session: Session, account_token: string, account_
   return parseResponse(session, response);
 }
 
-export function parseResponse (session: Session, response: Response): Array<Account> {
-  const content = JSON.parse(response.content);
+export function parseResponse (session: Session, raw_response: Response): Array<Account> {
+  const response = encodeEDResponse(raw_response);
+  session.token = response.token;
 
-  if ("token" in content)
-    session.token = content.token;
-
-  switch (content.code) {
+  switch (response.status) {
     case 505:
       throw new BadCredentials();
     case 517:
@@ -74,5 +78,5 @@ export function parseResponse (session: Session, response: Response): Array<Acco
       throw new DoubleAuthRequired();
   }
 
-  return content.data.accounts.map(decodeAccount);
+  return response.data.accounts.map(decodeAccount);
 }

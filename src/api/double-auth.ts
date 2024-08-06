@@ -1,10 +1,9 @@
 import { BadCredentials, SessionTokenRequired, type DoubleAuthChallenge, type Session } from "~/models";
-
 import { encodeRequestFormData, encodeRequestToken, encodeRequestUrlVersion, encodeRequest } from "~/encoders/request";
+import { encodeEDResponse } from "~/encoders/ed-response";
 import { decodeDoubleAuthChallenge } from "~/decoders/double-auth-challenge";
 import { decodeDoubleAuth } from "~/decoders/double-auth";
 
-import { getHeaderFromResponse } from "@literate.ink/utilities";
 import { btoa } from "js-base64";
 
 export async function initDoubleAuth (session: Session): Promise<DoubleAuthChallenge> {
@@ -17,15 +16,14 @@ export async function initDoubleAuth (session: Session): Promise<DoubleAuthChall
   encodeRequestToken(request, session.token);
   encodeRequestFormData(request, {});
 
-  const response = await session.fetcher(request);
-  const token = getHeaderFromResponse(response, "X-Token");
+  const raw_response = await session.fetcher(request);
+  const response = encodeEDResponse(raw_response);
 
-  if (!token)
+  if (!response.token)
     throw new BadCredentials();
-  else session.token = token;
+  else session.token = response.token;
 
-  const json = JSON.parse(response.content);
-  return decodeDoubleAuthChallenge(json.data);
+  return decodeDoubleAuthChallenge(response.data);
 }
 
 export async function checkDoubleAuth (session: Session, answer: string): Promise<boolean> {
@@ -40,9 +38,11 @@ export async function checkDoubleAuth (session: Session, answer: string): Promis
     choix: btoa(answer)
   });
 
-  const response = await session.fetcher(request);
-  const json = JSON.parse(response.content);
+  const raw_response = await session.fetcher(request);
+  const response = encodeEDResponse(raw_response);
 
-  session.double_auth = decodeDoubleAuth(json.data);
+  session.token = response.token;
+  session.double_auth = decodeDoubleAuth(response.data);
+
   return true;
 }
