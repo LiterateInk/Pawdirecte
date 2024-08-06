@@ -1,14 +1,6 @@
-import type { EdApiAccount } from "~/ecoledirecte/account";
-import type { EDClientsManagerSignals } from "~/clients/Manager";
-import type { EdUserType } from "~/constants/UserType";
-import { defaultEDFetcher } from "~/utils/fetcher";
-
 // API callers
-import { callApiStudentTimeline } from "~/api/student/timeline";
-import { callApiEdforms } from "~/api/edforms";
 import { callApiStudentVisios } from "~/api/student/visios";
 import { callApiStudentTimetable } from "~/api/student/timetable";
-import { callApiLogin } from "~/api/login";
 
 // Response Parsers
 import TimelineItem from "~/parsers/TimelineItem";
@@ -76,30 +68,6 @@ class EDStudent {
     return this.#account().identifiant;
   }
 
-  get #accessToken (): string {
-    return this.#account().accessToken;
-  }
-
-  public async getTimeline (): Promise<TimelineItem[]> {
-    const response = await callApiStudentTimeline(this.fetcher, {
-      token: this.#token(),
-      studentID: this.id.toString()
-    });
-
-    this.#setToken(response.token);
-    return response.data.map((item) => new TimelineItem(item));
-  }
-
-  public async getEdforms () {
-    const response = await callApiEdforms(this.fetcher, {
-      token: this.#token(),
-      id: this.id.toString()
-    });
-
-    this.#setToken(response.token);
-    return response.data;
-  }
-
   public async getVisios () {
     const response = await callApiStudentVisios(this.fetcher, {
       token: this.#token(),
@@ -124,20 +92,6 @@ class EDStudent {
 
     this.#setToken(response.token);
     return response.data.map((item) => new TimetableItem(item));
-  }
-
-  public async renewToken (): Promise<void> {
-    const session = await callApiLogin(this.fetcher, {
-      recovery: true,
-      accountType: this.accountType,
-      username: this.username,
-      deviceUUID: this.#uuid,
-      managerToken: this.#token(),
-      accessToken: this.#accessToken
-    });
-
-    this.#setToken(session.token);
-    this.#setAccounts(session.data.accounts);
   }
 }
 

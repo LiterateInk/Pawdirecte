@@ -1,4 +1,4 @@
-export enum EdApiStudentTimelineTypeElement {
+export enum TimelineItemKind {
   Note = "Note",
   VieScolaire = "VieScolaire",
   ReunionPP = "ReunionPP",

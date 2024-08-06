@@ -1,7 +1,8 @@
+import { type Account, type Session, SessionTokenRequired, type TimelineItem } from "~/models";
+
 import { encodeRequest, encodeRequestFormData, encodeRequestToken } from "~/encoders/request";
 import { encodeEDResponse } from "~/encoders/ed-response";
-import { Account, Session, SessionTokenRequired } from "~/models";
-import TimelineItem from "~/parsers/TimelineItem";
+import { decodeTimelineItem } from "~/decoders/timeline-item";
 
 export async function studentTimeline (session: Session, account: Account): Promise<Array<TimelineItem>> {
   if (!session.token)
@@ -15,5 +16,5 @@ export async function studentTimeline (session: Session, account: Account): Prom
   const response = encodeEDResponse(raw_response);
   session.token = response.token;
 
-  return response.data.map((item: any) => new TimelineItem(item));
+  return response.data.map(decodeTimelineItem);
 }

@@ -1,4 +1,4 @@
-import { Account, Session, SessionTokenRequired } from "~/models";
+import { type Account, type Session, SessionTokenRequired } from "~/models";
 import { encodeRequest, encodeRequestFormData, encodeRequestToken, encodeRequestUrlVersion } from "~/encoders/request";
 import { encodeEDResponse } from "~/encoders/ed-response";
 
