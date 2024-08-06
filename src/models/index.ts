@@ -12,3 +12,5 @@ export * from "./ed-response";
 export * from "./session";
 export * from "./timeline-item-kind";
 export * from "./timeline-item";
+export * from "./timetable-item-kind";
+export * from "./timetable-item";

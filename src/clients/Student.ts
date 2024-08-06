@@ -68,16 +68,6 @@ class EDStudent {
     return this.#account().identifiant;
   }
 
-  public async getVisios () {
-    const response = await callApiStudentVisios(this.fetcher, {
-      token: this.#token(),
-      studentID: this.id.toString()
-    });
-
-    this.#setToken(response.token);
-    return response.data;
-  }
-
   /**
    * @param from Timetable starting from this date.
    * @param to When not defined, it's the same as `from` so it displays the timetable for the day.
