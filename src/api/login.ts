@@ -11,15 +11,15 @@ import {
   InvalidVersion
 } from "~/models";
 
-import { encode_form_body, encode_token, encode_version, init_request } from "~/encoders/request";
+import { encodeRequestFormData, encodeRequestToken, encodeRequestUrlVersion, encodeRequest } from "~/encoders/request";
 import { encodeDoubleAuth } from "~/encoders/double-auth";
 import { decodeAccount } from "~/decoders/account";
 
 function initBaseRequest (body: Record<string, unknown>, token: string | null = null): Request {
-  const request = init_request("/login.awp");
-  encode_version(request);
-  encode_form_body(request, body);
-  if (token) encode_token(request, token);
+  const request = encodeRequest("/login.awp");
+  encodeRequestUrlVersion(request);
+  encodeRequestFormData(request, body);
+  if (token) encodeRequestToken(request, token);
   return request;
 };
 

@@ -1,4 +1,4 @@
-import { DoubleAuthChallenge } from "~/models/double-auth-challenge";
+import { DoubleAuthChallenge } from "~/models";
 import { atob } from "js-base64";
 
 export function decodeDoubleAuthChallenge (content: Record<string, any>): DoubleAuthChallenge {

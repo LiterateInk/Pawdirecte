@@ -1,6 +1,6 @@
 import { BadCredentials, SessionTokenRequired, type DoubleAuthChallenge, type Session } from "~/models";
 
-import { encode_form_body, encode_token, encode_version, init_request } from "~/encoders/request";
+import { encodeRequestFormData, encodeRequestToken, encodeRequestUrlVersion, encodeRequest } from "~/encoders/request";
 import { decodeDoubleAuthChallenge } from "~/decoders/double-auth-challenge";
 import { decodeDoubleAuth } from "~/decoders/double-auth";
 
@@ -11,11 +11,11 @@ export async function initDoubleAuth (session: Session): Promise<DoubleAuthChall
   if (!session.token)
     throw new SessionTokenRequired();
 
-  const request = init_request("/connexion/doubleauth.awp?verbe=get");
-  encode_version(request);
+  const request = encodeRequest("/connexion/doubleauth.awp?verbe=get");
+  encodeRequestUrlVersion(request);
 
-  encode_token(request, session.token);
-  encode_form_body(request, {});
+  encodeRequestToken(request, session.token);
+  encodeRequestFormData(request, {});
 
   const response = await session.fetcher(request);
   const token = getHeaderFromResponse(response, "X-Token");
@@ -32,11 +32,11 @@ export async function checkDoubleAuth (session: Session, answer: string): Promis
   if (!session.token)
     throw new SessionTokenRequired();
 
-  const request = init_request("/connexion/doubleauth.awp?verbe=post");
-  encode_version(request);
+  const request = encodeRequest("/connexion/doubleauth.awp?verbe=post");
+  encodeRequestUrlVersion(request);
 
-  encode_token(request, session.token);
-  encode_form_body(request, {
+  encodeRequestToken(request, session.token);
+  encodeRequestFormData(request, {
     choix: btoa(answer)
   });
 

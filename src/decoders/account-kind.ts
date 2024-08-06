@@ -1,4 +1,4 @@
-import { AccountKind } from "~/models/account-kind";
+import { AccountKind } from "~/models";
 
 export function decodeAccountKind (str: string): AccountKind {
   switch (str) {

@@ -1,5 +1,5 @@
 import { Account } from "~/models/account";
-import { decodeAccountKind } from "./account-kind";
+import { decodeAccountKind } from "~/decoders/account-kind";
 
 export function decodeAccount (api: any): Account {
   return new Account(
