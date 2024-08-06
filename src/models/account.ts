@@ -6,7 +6,7 @@ export class Account {
     public id: number,
     public user_id: string,
     public username: string,
-    public account_kind: AccountKind,
+    public kind: AccountKind,
     public ogec_id: string,
     public main: boolean,
     public last_connection: Date,
