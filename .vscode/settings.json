@@ -1,13 +1,11 @@
 {
-  "cSpell.language": "en,fr",
-  
-  "editor.insertSpaces": true,
   "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
   "editor.tabSize": 2,
 
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
 
-  "eslint.experimental.useFlatConfig": true
+  "eslint.useFlatConfig": true
 }
