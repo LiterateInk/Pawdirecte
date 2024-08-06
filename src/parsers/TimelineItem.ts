@@ -1,4 +1,4 @@
-import type { EdApiStudentTimelineItem, EdApiStudentTimelineTypeElement } from "~/ecoledirecte/timeline";
+import type { EdApiStudentTimelineTypeElement } from "~/ecoledirecte/timeline";
 
 class TimelineItem {
   public title: string;
@@ -12,7 +12,7 @@ class TimelineItem {
 
   public date: Date;
 
-  constructor (item: EdApiStudentTimelineItem) {
+  constructor (item: any) {
     this.title = item.titre;
     this.description = item.soustitre;
     this.content = item.contenu;
