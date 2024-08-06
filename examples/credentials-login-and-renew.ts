@@ -1,4 +1,4 @@
-import { Session, login, initDoubleAuth, checkDoubleAuth, DoubleAuthRequired } from "../src";
+import { Session, login, initDoubleAuth, checkDoubleAuth, DoubleAuthRequired, refresh } from "../src";
 import { ExampleCredentialsError, credentials } from "./_credentials";
 
 (async () => {
@@ -15,9 +15,9 @@ import { ExampleCredentialsError, credentials } from "./_credentials";
   const password = credentials.student_password;
 
   console.info("Initializing a session using credentials...");
-  const session = new Session(username, uuid);
+  let session = new Session(username, uuid);
 
-  const accounts = await login(session, password).catch(async (error) => {
+  let accounts = await login(session, password).catch(async (error) => {
     if (error instanceof DoubleAuthRequired) {
       const qcm = await initDoubleAuth(session);
       console.info("Double authentication required.");
@@ -37,33 +37,22 @@ import { ExampleCredentialsError, credentials } from "./_credentials";
 
       return login(session, password);
     }
+
+    throw error;
   });
 
-  console.log(accounts);
-
   // Grab the first account, and show some information.
-  // let user = session.clients[0];
-  // console.log("Logged in to", user.firstName, user.lastName, "from", user.schoolName);
+  let user = accounts[0];
+  console.log("Logged in to", user.first_name, user.last_name, "from", user.school_name);
 
-  // Create a recovery, used to reconnect !
-  // const exported = session.createManagerExport();
+  // Initialize another session using previous data.
+  session = new Session(user.username, uuid, session.token, session.double_auth);
+  // Refresh the token.
+  accounts = await refresh(session, user.token, user.account_kind);
 
-  // Initialize another session using the exported data.
-  // session = initWithExportedData({
-  //   data: exported,
-  //   deviceUUID: uuid,
-
-  //   // You can also provide a custom fetcher here.
-  //   fetcher: defaultEDFetcher
-  // });
-
-  // Grab the first account again.
-  // user = session.clients[0];
-
-  // Force a token renewal.
-  // console.info("Forcing a renewal of the token.");
-  // await user.renewToken();
+  // Regrab the first account, and show some information.
+  user = accounts[0];
 
   // Show again the information, and the new token.
-  // console.log("Re-logged in to", user.firstName, user.lastName, "from", user.schoolName);
+  console.log("Re-logged in to", user.first_name, user.last_name, "from", user.school_name);
 })();
