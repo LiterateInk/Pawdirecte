@@ -40,16 +40,15 @@
       "tagName": "js-v${version}"
     },
     "github": {
-      "release": true,
       "draft": false,
+      "release": true,
       "releaseName": "js v${version}"
     },
     "npm": {
-      "publish": true
+      "publish": false
     },
     "hooks": {
-      "before:init": "pnpm lint",
-      "after:bump": "pnpm build"
+      "before:init": "pnpm lint"
     }
   },
   "devDependencies": {
