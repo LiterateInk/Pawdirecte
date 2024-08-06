@@ -1,65 +1,69 @@
-import { initWithCredentials, defaultEDFetcher, initWithExportedData } from "../src";
+import { Session, login, initDoubleAuth, checkDoubleAuth, DoubleAuthRequired } from "../src";
 import { ExampleCredentialsError, credentials } from "./_credentials";
 
 (async () => {
-  // This is a unique identifier that'll be linked to the token generated.
+  // This is an identifier that'll be
+  // linked to the token generated, should be very secure !
   const uuid = "your-device-uuid";
 
   // Check the credentials provided in `.env`
-  if (!credentials.student_username || !credentials.student_password) throw new ExampleCredentialsError("student");
+  if (!credentials.student_username || !credentials.student_password)
+    throw new ExampleCredentialsError("student");
+
+  // Retrieve the credentials.
+  const username = credentials.student_username;
+  const password = credentials.student_password;
+
   console.info("Initializing a session using credentials...");
+  const session = new Session(username, uuid);
 
-  let session = await initWithCredentials({
-    deviceUUID: uuid,
+  const accounts = await login(session, password).catch(async (error) => {
+    if (error instanceof DoubleAuthRequired) {
+      const qcm = await initDoubleAuth(session);
+      console.info("Double authentication required.");
+      console.info("Reply to this question:", qcm.question);
 
-    username: credentials.student_username,
-    password: credentials.student_password,
+      for (const index in qcm.answers) {
+        console.info(`[${index}]`, qcm.answers[index]);
+      }
 
-    // If you want to use a custom fetcher, you can provide it here.
-    // It'll use `defaultEDFetcher` by default which uses `fetch` under the hood.
-    fetcher: defaultEDFetcher
+      const answerIndex = prompt("Answer the question by providing the index of the answer :");
+      if (!answerIndex) throw new Error("No answer provided.");
+      const answer = qcm.answers[parseInt(answerIndex)];
+
+      // Answer the question.
+      if (await checkDoubleAuth(session, answer))
+        console.info("Double authentication confirmed.");
+
+      return login(session, password);
+    }
   });
 
-  if (session.requiresDoubleAuthentication) {
-    const qcm = await session.getDoubleAuthenticationQCM();
-    console.info("Double authentication required.");
-    console.info("Reply to this question:", qcm.question);
-
-    for (const index in qcm.answers) {
-      console.info(`[${index}]`, qcm.answers[index]);
-    }
-
-    const answer = prompt("Answer the question by providing the index of the answer :");
-    if (!answer) throw new Error("No answer provided.");
-
-    // Answer the question.
-    const values = await session.replyDoubleAuthenticationQCM(qcm.answers[parseInt(answer, 10)]);
-    await session.renewAuthentication(credentials.student_username, credentials.student_password, values);
-  }
+  console.log(accounts);
 
   // Grab the first account, and show some information.
-  let user = session.clients[0];
-  console.log("Logged in to", user.firstName, user.lastName, "from", user.schoolName);
+  // let user = session.clients[0];
+  // console.log("Logged in to", user.firstName, user.lastName, "from", user.schoolName);
 
   // Create a recovery, used to reconnect !
-  const exported = session.createManagerExport();
+  // const exported = session.createManagerExport();
 
   // Initialize another session using the exported data.
-  session = initWithExportedData({
-    data: exported,
-    deviceUUID: uuid,
+  // session = initWithExportedData({
+  //   data: exported,
+  //   deviceUUID: uuid,
 
-    // You can also provide a custom fetcher here.
-    fetcher: defaultEDFetcher
-  });
+  //   // You can also provide a custom fetcher here.
+  //   fetcher: defaultEDFetcher
+  // });
 
   // Grab the first account again.
-  user = session.clients[0];
+  // user = session.clients[0];
 
   // Force a token renewal.
-  console.info("Forcing a renewal of the token.");
-  await user.renewToken();
+  // console.info("Forcing a renewal of the token.");
+  // await user.renewToken();
 
   // Show again the information, and the new token.
-  console.log("Re-logged in to", user.firstName, user.lastName, "from", user.schoolName);
+  // console.log("Re-logged in to", user.firstName, user.lastName, "from", user.schoolName);
 })();
