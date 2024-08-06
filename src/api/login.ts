@@ -1,5 +1,15 @@
-import { type Session, type AccountKind, type Account, DoubleAuthRequired } from "~/models";
 import type { Request, Response } from "@literate.ink/utilities";
+
+import {
+  type Session,
+  type AccountKind,
+  type Account,
+
+  DoubleAuthRequired,
+  SessionTokenRequired,
+  BadCredentials,
+  InvalidVersion
+} from "~/models";
 
 import { encode_form_body, encode_token, encode_version, init_request } from "~/encoders/request";
 import { encodeDoubleAuth } from "~/encoders/double-auth";
@@ -32,7 +42,7 @@ export async function login (session: Session, password: string): Promise<Array<
 
 export async function refresh (session: Session, account_token: string, account_kind: AccountKind): Promise<Array<Account>> {
   if (!session.token)
-    throw new Error("Session token is required to refresh a session");
+    throw new SessionTokenRequired();
 
   const request = initBaseRequest({
     fa: [encodeDoubleAuth(session.double_auth)],
@@ -57,9 +67,9 @@ export function parseResponse (session: Session, response: Response): Array<Acco
 
   switch (content.code) {
     case 505:
-      throw new Error("Invalid credentials");
+      throw new BadCredentials();
     case 517:
-      throw new Error("Invalid version, please open an issue at the 'LiterateInk/Pawdirecte' GitHub repository.");
+      throw new InvalidVersion();
     case 250:
       throw new DoubleAuthRequired();
   }

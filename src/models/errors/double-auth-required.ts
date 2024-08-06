@@ -1,5 +1,6 @@
 export class DoubleAuthRequired extends Error {
-  constructor () {
+  public constructor () {
     super("Double authentication required");
+    this.name = "DoubleAuthRequired";
   }
 }

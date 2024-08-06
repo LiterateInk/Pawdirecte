@@ -1,4 +1,4 @@
-import type { DoubleAuthChallenge, Session } from "~/models";
+import { BadCredentials, SessionTokenRequired, type DoubleAuthChallenge, type Session } from "~/models";
 
 import { encode_form_body, encode_token, encode_version, init_request } from "~/encoders/request";
 import { decodeDoubleAuthChallenge } from "~/decoders/double-auth-challenge";
@@ -9,7 +9,7 @@ import { btoa } from "js-base64";
 
 export async function initDoubleAuth (session: Session): Promise<DoubleAuthChallenge> {
   if (!session.token)
-    throw new Error("Session token is required to fetch double auth challenge");
+    throw new SessionTokenRequired();
 
   const request = init_request("/connexion/doubleauth.awp?verbe=get");
   encode_version(request);
@@ -21,7 +21,7 @@ export async function initDoubleAuth (session: Session): Promise<DoubleAuthChall
   const token = getHeaderFromResponse(response, "X-Token");
 
   if (!token)
-    throw new Error("No token found in the response headers");
+    throw new BadCredentials();
   else session.token = token;
 
   const json = JSON.parse(response.content);
@@ -30,7 +30,7 @@ export async function initDoubleAuth (session: Session): Promise<DoubleAuthChall
 
 export async function checkDoubleAuth (session: Session, answer: string): Promise<boolean> {
   if (!session.token)
-    throw new Error("Session token is required to confirm double auth");
+    throw new SessionTokenRequired();
 
   const request = init_request("/connexion/doubleauth.awp?verbe=post");
   encode_version(request);
