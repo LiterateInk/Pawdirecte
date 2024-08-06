@@ -5,13 +5,13 @@ message: >-
   metadata from this file.
 type: software
 authors:
-  - given-names: Mikkel
-    family-names: ALMONTE--RINGAUD
-    email: vexitofficial@gmail.com
+  - name: LiterateInk
+    website: "https://literate.ink"
+    email: contact@literate.ink
 repository-code: 'https://github.com/LiterateInk/Pawdirecte'
 url: 'https://docs.literate.ink/pawdirecte'
 abstract: >-
-  A purrfect API wrapper for EcoleDirecte
+  A purrfect API wrapper for EcoleDirecte.
 keywords:
   - ecoledirecte
   - wrapper
