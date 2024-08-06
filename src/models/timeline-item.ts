@@ -1,12 +1,10 @@
-import { TimelineItemKind } from "~/models";
+import type { TimelineItemKind } from "~/models";
 
-export class TimelineItem {
-  public constructor (
-    public title: string,
-    public description: string,
-    public content: string,
-    public element_id: number,
-    public element_kind: TimelineItemKind,
-    public date: Date
-  ) {}
+export interface TimelineItem {
+  readonly title: string
+  readonly description: string
+  readonly content: string
+  readonly element_id: number
+  readonly element_kind: TimelineItemKind
+  readonly date: Date
 }

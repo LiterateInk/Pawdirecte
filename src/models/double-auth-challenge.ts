@@ -1,6 +1,4 @@
-export class DoubleAuthChallenge {
-  public constructor (
-    public question: string,
-    public answers: string[]
-  ) {}
+export interface DoubleAuthChallenge {
+  readonly question: string
+  readonly answers: string[]
 }

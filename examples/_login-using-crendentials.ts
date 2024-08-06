@@ -1,4 +1,4 @@
-import { Session, login, initDoubleAuth, checkDoubleAuth, DoubleAuthRequired } from "../src";
+import { type Session, login, initDoubleAuth, checkDoubleAuth, DoubleAuthRequired } from "../src";
 
 // This is an identifier that'll be
 // linked to the token generated, should be very secure !
@@ -6,7 +6,7 @@ export const uuid = "your-device-uuid";
 
 export async function loginUsingCredentials (username: string, password: string) {
   console.info("Initializing a session using credentials...");
-  const session = new Session(username, uuid);
+  const session: Session = { username, device_uuid: uuid };
 
   const accounts = await login(session, password).catch(async (error) => {
     // Handle double authentication, if required.

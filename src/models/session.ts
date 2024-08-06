@@ -1,12 +1,10 @@
-import { defaultFetcher, type Fetcher } from "@literate.ink/utilities";
-import { DoubleAuth } from "~/models/double-auth";
+import type { Fetcher } from "@literate.ink/utilities";
+import type { DoubleAuth } from "~/models/double-auth";
 
-export class Session {
-  public constructor (
-    public username: string,
-    public device_uuid: string,
-    public token: string | null = null,
-    public double_auth: DoubleAuth | null = null,
-    public fetcher: Fetcher = defaultFetcher
-  ) {}
+export interface Session {
+  readonly username: string,
+  readonly device_uuid: string,
+  token?: string | null,
+  double_auth?: DoubleAuth | null,
+  readonly fetcher?: Fetcher
 }

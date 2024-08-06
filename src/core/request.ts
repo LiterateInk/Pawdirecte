@@ -1,4 +1,4 @@
-import type { Fetcher, Request as UnsafeRequest } from "@literate.ink/utilities";
+import { defaultFetcher, type Fetcher, type Request as UnsafeRequest } from "@literate.ink/utilities";
 import { Response } from "./response";
 
 export class Request {
@@ -29,7 +29,7 @@ export class Request {
     return this;
   }
 
-  public async send (fetcher: Fetcher): Promise<Response> {
+  public async send (fetcher: Fetcher = defaultFetcher): Promise<Response> {
     const response = await fetcher(this as UnsafeRequest);
     return new Response(response);
   }

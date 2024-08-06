@@ -1,28 +1,26 @@
 import type { AccountKind } from "~/models";
 
-export class Account {
-  public constructor (
-    public id_login: number,
-    public id: number,
-    public user_id: string,
-    public username: string,
-    public kind: AccountKind,
-    public ogec_id: string,
-    public main: boolean,
-    public last_connection: Date,
-    public first_name: string,
-    public last_name: string,
-    public email: string,
-    public phone: string,
-    public school_name: string,
-    public school_rne: string,
-    public school_logo_path: string,
-    /** As HEX. */
-    public school_agenda_color: string,
-    public token: string,
-    public socket_token: string,
-    public gender: "M" | "F",
-    public profile_picture_url: string,
-    public modules: any[] // TODO
-  ) {}
+export interface Account {
+  readonly id_login: number
+  readonly id: number
+  readonly user_id: string
+  readonly username: string
+  readonly kind: AccountKind
+  readonly ogec_id: string
+  readonly main: boolean
+  readonly last_connection: Date
+  readonly first_name: string
+  readonly last_name: string
+  readonly email: string
+  readonly phone: string
+  readonly school_name: string
+  readonly school_rne: string
+  readonly school_logo_path: string
+  /** As HEX. */
+  readonly school_agenda_color: string
+  readonly token: string
+  readonly socket_token: string
+  readonly gender: "M" | "F"
+  readonly profile_picture_url: string
+  readonly modules: any[] // TODO
 }

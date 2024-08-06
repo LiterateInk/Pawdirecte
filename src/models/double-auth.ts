@@ -1,6 +1,4 @@
-export class DoubleAuth {
-  public constructor (
-    public cn: string,
-    public cv: string
-  ) {}
+export interface DoubleAuth {
+  readonly name: string
+  readonly value: string
 }
