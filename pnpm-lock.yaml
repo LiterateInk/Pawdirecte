@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@literate.ink/utilities':
-        specifier: latest
+        specifier: 1.0.0-10281844077.1
         version: 1.0.0-10281844077.1
       js-base64:
         specifier: ^3.7.7

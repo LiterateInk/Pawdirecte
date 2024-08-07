@@ -63,7 +63,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@literate.ink/utilities": "latest",
+    "@literate.ink/utilities": "1.0.0-10281844077.1",
     "js-base64": "^3.7.7"
   }
 }
