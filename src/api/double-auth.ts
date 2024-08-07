@@ -3,7 +3,7 @@ import { decodeDoubleAuthChallenge } from "~/decoders/double-auth-challenge";
 import { decodeDoubleAuth } from "~/decoders/double-auth";
 import { Request } from "~/core/request";
 
-import { btoa } from "js-base64";
+import { encode } from "js-base64";
 
 export async function initDoubleAuth (session: Session): Promise<DoubleAuthChallenge> {
   if (!session.token)
@@ -31,7 +31,7 @@ export async function checkDoubleAuth (session: Session, answer: string): Promis
     .addVersionURL()
     .setToken(session.token)
     .setFormData({
-      choix: btoa(answer)
+      choix: encode(answer)
     });
 
   const response = await request.send(session.fetcher);
