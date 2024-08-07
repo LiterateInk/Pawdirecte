@@ -26,7 +26,7 @@ export function decodeAccount (account: any): Account {
     token: account.accessToken,
     socket_token: account.socketToken,
     gender,
-    profile_picture_url: "https:" + account.profile.photo,
+    profile_picture_url: account.profile.photo,
     modules: account.modules
   };
 }
