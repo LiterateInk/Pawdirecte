@@ -1,6 +1,6 @@
 {
   "name": "pawdirecte",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A purrfect API wrapper for EcoleDirecte.",
   "repository": "https://github.com/LiterateInk/Pawdirecte",
   "main": "./dist/index.js",
