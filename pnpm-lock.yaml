@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@literate.ink/utilities':
         specifier: latest
-        version: 1.0.0-10253778099.1
+        version: 1.0.0-10281844077.1
       js-base64:
         specifier: ^3.7.7
         version: 3.7.7
@@ -267,8 +267,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@literate.ink/utilities@1.0.0-10253778099.1':
-    resolution: {integrity: sha512-zaPmzdal5gwSRff1Y0aXsrSZTM48RJrZPjCTHv0mNzFosaD8Eewbm3H0k2tkml8BDCdWhqjTUJuX0v2lCvYbxg==}
+  '@literate.ink/utilities@1.0.0-10281844077.1':
+    resolution: {integrity: sha512-E7az31xzM4vDTgKuzH1pYDQ4llNZZuz79HqItk7Yl6aHmxRqWVqijpgausciC/sJ0VyrxeqTVeCdyMWTPDjJGA==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2191,7 +2191,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@literate.ink/utilities@1.0.0-10253778099.1':
+  '@literate.ink/utilities@1.0.0-10281844077.1':
     dependencies:
       set-cookie-parser: 2.7.0
 
