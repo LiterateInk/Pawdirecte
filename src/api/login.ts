@@ -32,7 +32,7 @@ export async function login (session: Session, password: string): Promise<Array<
     uuid: session.device_uuid,
     isReLogin: false,
     sesouvenirdemoi: true,
-    motdepasse: password
+    motdepasse: encodeURI(password)
   }, session.token);
 
   return pipe(session, request);
