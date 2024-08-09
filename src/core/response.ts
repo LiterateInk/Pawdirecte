@@ -10,7 +10,7 @@ export class Response {
     this.token = getHeaderFromResponse(response, "x-token");
 
     const content_type = getHeaderFromResponse(response, "content-type");
-    if (content_type !== "application/json") {
+    if (!content_type?.startsWith("application/json")) {
       this.status = parseInt(getHeaderFromResponse(response, "x-code")!, 10);
     }
     else {
