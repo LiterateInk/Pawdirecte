@@ -1,4 +1,4 @@
-export interface DoubleAuthChallenge {
-  readonly question: string
-  readonly answers: string[]
-}
+export type DoubleAuthChallenge = Readonly<{
+  question: string
+  answers: string[]
+}>;

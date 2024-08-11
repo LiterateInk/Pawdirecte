@@ -1,8 +1,8 @@
-import { AccountKind } from "~/models";
+import { AccountKind, UnknownEnumValue } from "~/models";
 
-export function decodeAccountKind (kind: string): AccountKind {
+export const decodeAccountKind = (kind: any): AccountKind => {
   switch (kind) {
-    case "E": return AccountKind.Student;
-    default: throw new Error(`Unknown account kind: ${kind}`);
+    case "E": return AccountKind.STUDENT;
+    default: throw new UnknownEnumValue("AccountKind", kind);
   }
-}
+};

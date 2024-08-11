@@ -6,12 +6,12 @@ import { Request } from "~/core/request";
  * @param startDate Timetable starting from this date.
  * @param endDate When not defined, it's the same as `from` so it displays the timetable for the day.
  */
-export async function studentTimetable (
+export const studentTimetable = async (
   session: Session,
   account: Account,
   startDate: Date,
   endDate = startDate
-): Promise<Array<TimetableItem>> {
+): Promise<Array<TimetableItem>> => {
   if (!session.token)
     throw new SessionTokenRequired();
 
@@ -28,4 +28,4 @@ export async function studentTimetable (
   session.token = response.token;
 
   return response.data.map(decodeTimetableItem);
-}
+};

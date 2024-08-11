@@ -1,26 +1,26 @@
 import type { AccountKind } from "~/models";
 
-export interface Account {
-  readonly id_login: number
-  readonly id: number
-  readonly user_id: string
-  readonly username: string
-  readonly kind: AccountKind
-  readonly ogec_id: string
-  readonly main: boolean
-  readonly last_connection: Date
-  readonly first_name: string
-  readonly last_name: string
-  readonly email: string
-  readonly phone: string
-  readonly school_name: string
-  readonly school_rne: string
-  readonly school_logo_path: string
+export type Account = Readonly<{
+  id_login: number
+  id: number
+  user_id: string
+  username: string
+  kind: AccountKind
+  ogec_id: string
+  main: boolean
+  last_connection: Date
+  first_name: string
+  last_name: string
+  email: string
+  phone: string
+  school_name: string
+  school_rne: string
+  school_logo_path: string
   /** As HEX. */
-  readonly school_agenda_color: string
-  readonly token: string
-  readonly socket_token: string
-  readonly gender: "M" | "F"
-  readonly profile_picture_url: string
-  readonly modules: any[] // TODO
-}
+  school_agenda_color: string
+  token: string
+  socket_token: string
+  gender: "M" | "F"
+  profile_picture_url: string
+  modules: any[] // TODO
+}>;

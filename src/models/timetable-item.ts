@@ -1,17 +1,17 @@
 import type { TimetableItemKind } from "~/models";
 
-export interface TimetableItem {
-  readonly id: number
+export type TimetableItem = Readonly<{
+  id: number
   /** As HEX. */
-  readonly color: string
-  readonly start_date: Date
-  readonly end_date: Date
-  readonly subject_name: string
-  readonly subject_short_name: string
-  readonly room: string
-  readonly teacher: string
-  readonly kind: TimetableItemKind
-  readonly cancelled: boolean
-  readonly updated: boolean
-  readonly notes: string
-}
+  color: string
+  start_date: Date
+  end_date: Date
+  subject_name: string
+  subject_short_name: string
+  room: string
+  teacher: string
+  kind: TimetableItemKind
+  cancelled: boolean
+  updated: boolean
+  notes: string
+}>;

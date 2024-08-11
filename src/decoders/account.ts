@@ -1,7 +1,7 @@
 import type { Account } from "~/models/account";
 import { decodeAccountKind } from "~/decoders/account-kind";
 
-export function decodeAccount (account: any): Account {
+export const decodeAccount = (account: any): Account => {
   const gender = (typeof account.profile.sexe !== "undefined" && account.profile.sexe !== null)
     ? account.profile.sexe
     : account.civilite === "Mme" ? "F" : "M";
@@ -29,4 +29,4 @@ export function decodeAccount (account: any): Account {
     profile_picture_url: account.profile.photo,
     modules: account.modules
   };
-}
+};

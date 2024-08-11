@@ -2,7 +2,7 @@ import { type Account, type Session, SessionTokenRequired, type TimelineItem } f
 import { decodeTimelineItem } from "~/decoders/timeline-item";
 import { Request } from "~/core/request";
 
-export async function studentTimeline (session: Session, account: Account): Promise<Array<TimelineItem>> {
+export const studentTimeline = async (session: Session, account: Account): Promise<Array<TimelineItem>> => {
   if (!session.token)
     throw new SessionTokenRequired();
 
@@ -15,4 +15,4 @@ export async function studentTimeline (session: Session, account: Account): Prom
   session.token = response.token;
 
   return response.data.map(decodeTimelineItem);
-}
+};

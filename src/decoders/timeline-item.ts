@@ -1,6 +1,6 @@
 import type { TimelineItem } from "~/models";
 
-export function decodeTimelineItem (item: any): TimelineItem {
+export const decodeTimelineItem = (item: any): TimelineItem => {
   return {
     title: item.titre,
     description: item.soustitre,
@@ -9,4 +9,4 @@ export function decodeTimelineItem (item: any): TimelineItem {
     element_kind: item.typeElement,
     date: new Date(item.date)
   };
-}
+};

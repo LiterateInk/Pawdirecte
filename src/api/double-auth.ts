@@ -5,7 +5,7 @@ import { Request } from "~/core/request";
 
 import { encode } from "js-base64";
 
-export async function initDoubleAuth (session: Session): Promise<DoubleAuthChallenge> {
+export const initDoubleAuth = async (session: Session): Promise<DoubleAuthChallenge> => {
   if (!session.token)
     throw new SessionTokenRequired();
 
@@ -21,9 +21,9 @@ export async function initDoubleAuth (session: Session): Promise<DoubleAuthChall
   else session.token = response.token;
 
   return decodeDoubleAuthChallenge(response.data);
-}
+};
 
-export async function checkDoubleAuth (session: Session, answer: string): Promise<boolean> {
+export const checkDoubleAuth = async (session: Session, answer: string): Promise<boolean> => {
   if (!session.token)
     throw new SessionTokenRequired();
 
@@ -40,4 +40,4 @@ export async function checkDoubleAuth (session: Session, answer: string): Promis
   session.double_auth = decodeDoubleAuth(response.data);
 
   return true;
-}
+};

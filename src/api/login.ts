@@ -13,7 +13,7 @@ import { encodeDoubleAuth } from "~/encoders/double-auth";
 import { decodeAccount } from "~/decoders/account";
 import { Request } from "~/core/request";
 
-function init (body: Record<string, unknown>, token: string | null = null): Request {
+const init = (body: Record<string, unknown>, token: string | null = null): Request => {
   const request = new Request("/login.awp")
     .addVersionURL()
     .setFormData(body);
@@ -22,7 +22,7 @@ function init (body: Record<string, unknown>, token: string | null = null): Requ
   return request;
 };
 
-export async function login (session: Session, password: string): Promise<Array<Account>> {
+export const login = async (session: Session, password: string): Promise<Array<Account>> => {
   const encoded_double_auth = encodeDoubleAuth(session.double_auth);
   const request = init({
     ...encoded_double_auth,
@@ -36,9 +36,9 @@ export async function login (session: Session, password: string): Promise<Array<
   }, session.token);
 
   return pipe(session, request);
-}
+};
 
-export async function refresh (session: Session, account_token: string, account_kind: AccountKind): Promise<Array<Account>> {
+export const refresh = async (session: Session, account_token: string, account_kind: AccountKind): Promise<Array<Account>> => {
   if (!session.token)
     throw new SessionTokenRequired();
 
@@ -54,9 +54,9 @@ export async function refresh (session: Session, account_token: string, account_
   }, session.token);
 
   return pipe(session, request);
-}
+};
 
-async function pipe (session: Session, request: Request): Promise<Array<Account>> {
+const pipe = async (session: Session, request: Request): Promise<Array<Account>> => {
   const response = await request.send(session.fetcher);
   session.token = response.token;
 
@@ -70,4 +70,4 @@ async function pipe (session: Session, request: Request): Promise<Array<Account>
   }
 
   return response.data.accounts.map(decodeAccount);
-}
+};

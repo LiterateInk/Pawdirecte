@@ -1,6 +1,6 @@
 import type { TimetableItem } from "~/models";
 
-export function decodeTimetableItem (item: any): TimetableItem {
+export const decodeTimetableItem = (item: any): TimetableItem => {
   return {
     id: item.id,
     color: item.color,
@@ -15,4 +15,4 @@ export function decodeTimetableItem (item: any): TimetableItem {
     updated: item.isModifie,
     notes: item.text
   };
-}
+};
