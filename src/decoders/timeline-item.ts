@@ -5,8 +5,8 @@ export const decodeTimelineItem = (item: any): TimelineItem => {
     title: item.titre,
     description: item.soustitre,
     content: item.contenu,
-    element_id: item.idElement,
-    element_kind: item.typeElement,
+    elementID: item.idElement,
+    elementKind: item.typeElement,
     date: new Date(item.date)
   };
 };

@@ -14,5 +14,5 @@ void async function main () {
 
   // Grab the first account, and show some information.
   account = accounts[0];
-  console.log("Re-logged in to", account.first_name, account.last_name, "from", account.school_name);
+  console.log("Re-logged in to", account.firstName, account.lastName, "from", account.schoolName);
 }();

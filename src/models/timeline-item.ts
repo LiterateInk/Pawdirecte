@@ -4,7 +4,7 @@ export type TimelineItem = Readonly<{
   title: string
   description: string
   content: string
-  element_id: number
-  element_kind: TimelineItemKind
+  elementID: number
+  elementKind: TimelineItemKind
   date: Date
 }>;

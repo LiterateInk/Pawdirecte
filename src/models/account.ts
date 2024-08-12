@@ -1,26 +1,26 @@
 import type { AccountKind } from "~/models";
 
 export type Account = Readonly<{
-  id_login: number
+  loginID: number
   id: number
-  user_id: string
+  userID: string
   username: string
   kind: AccountKind
-  ogec_id: string
+  ogecID: string
   main: boolean
-  last_connection: Date
-  first_name: string
-  last_name: string
+  lastConnection: Date
+  firstName: string
+  lastName: string
   email: string
   phone: string
-  school_name: string
-  school_rne: string
-  school_logo_path: string
+  schoolName: string
+  schoolUAI: string
+  schoolLogoPath: string
   /** As HEX. */
-  school_agenda_color: string
+  schoolAgendaColor: string
   token: string
   socket_token: string
   gender: "M" | "F"
-  profile_picture_url: string
+  profilePictureURL: string
   modules: any[] // TODO
 }>;

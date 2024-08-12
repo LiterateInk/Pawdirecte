@@ -4,10 +4,10 @@ export type TimetableItem = Readonly<{
   id: number
   /** As HEX. */
   color: string
-  start_date: Date
-  end_date: Date
-  subject_name: string
-  subject_short_name: string
+  startDate: Date
+  endDate: Date
+  subjectName: string
+  subjectShortName: string
   room: string
   teacher: string
   kind: TimetableItemKind
