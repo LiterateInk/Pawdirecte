@@ -1,5 +1,6 @@
 export * from "./account/edforms";
 
+export * from "./student/homepageTimeline";
 export * from "./student/timeline";
 export * from "./student/timetable";
 export * from "./student/visios";
