@@ -27,6 +27,7 @@ export const decodeAccount = (account: any): Account => {
     socket_token: account.socketToken,
     gender,
     profilePictureURL: account.profile.photo,
-    modules: account.modules
+    modules: account.modules,
+    currentSchoolCycle: account.anneeScolaireCourante
   };
 };
