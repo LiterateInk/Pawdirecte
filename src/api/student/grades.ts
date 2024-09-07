@@ -6,7 +6,7 @@ import { decodePeriod } from "~/decoders/period";
 type GradesResponse = {
   grades: Array<Grade>
   periods: Array<Period>
-}
+};
 
 /**
  * @param year "The year to fetch grades in YYYY format."
