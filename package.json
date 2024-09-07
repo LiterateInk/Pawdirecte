@@ -70,6 +70,7 @@
   },
   "dependencies": {
     "@literate.ink/utilities": "1.0.0-10336585950.1",
+    "buffer": "^6.0.3",
     "js-base64": "^3.7.7"
   }
 }
