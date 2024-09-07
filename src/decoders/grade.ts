@@ -1,13 +1,13 @@
 import { Grade } from "~/models";
 import { decodeGradeValue } from "~/decoders/grade-value";
+import { decodeSkill } from "~/decoders/skill";
 
-// TODO: integrate skills
 export const decodeGrade = (item: any): Grade => {
   return {
     comment: item.devoir,
     average: decodeGradeValue(item.moyenneClasse),
     isOptional: item.valeurisee,
-    skills: [],
+    skills: item.elementsProgramme.map(decodeSkill),
     coefficient: Number(item.coef),
     date: new Date(item.date),
     examType: item.typeDevoir,
