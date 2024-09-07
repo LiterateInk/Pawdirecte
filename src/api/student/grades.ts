@@ -1,11 +1,17 @@
-import { type Account, Grade, type Session, SessionTokenRequired } from "~/models";
+import { type Account, Grade, Period, type Session, SessionTokenRequired } from "~/models";
 import { Request } from "~/core/request";
 import { decodeGrade } from "~/decoders/grade";
+import { decodePeriod } from "~/decoders/period";
+
+type GradesResponse = {
+  grades: Array<Grade>
+  periods: Array<Period>
+}
 
 /**
  * @param year "The year to fetch grades in YYYY format."
  */
-export const studentGrades = async (session: Session, account: Account, year: string): Promise<Array<Grade>> => {
+export const studentGrades = async (session: Session, account: Account, year: string): Promise<GradesResponse> => {
   if (!session.token)
     throw new SessionTokenRequired();
 
@@ -19,6 +25,9 @@ export const studentGrades = async (session: Session, account: Account, year: st
   const response = await request.send(session.fetcher);
   session.token = response.token;
 
-  // TODO: decode periods, skills colors and more
-  return response.data.notes.map(decodeGrade);
+  // TODO: return parameters like colors ect...
+  return {
+    grades: response.data.notes.map(decodeGrade),
+    periods: response.data.periods.map(decodePeriod)
+  };
 };
