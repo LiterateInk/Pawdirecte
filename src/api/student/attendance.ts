@@ -16,7 +16,8 @@ export const studentAttendance = async (
 
   const request = new Request(`/eleves/${account.id}/viescolaire.awp?verbe=get`)
     .addVersionURL()
-    .setToken(session.token);
+    .setToken(session.token)
+    .setFormData({});
 
   const response = await request.send(session.fetcher);
   session.token = response.token;
