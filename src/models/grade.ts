@@ -1,7 +1,6 @@
-import { Period } from "~/models/period";
 import { Subject } from "~/models/subject";
 import { GradeValue } from "~/models/grade-value";
-import {Skill} from "~/models/skill";
+import { Skill } from "~/models/skill";
 
 // TODO: integrate QCM
 export type Grade = Readonly<{
@@ -11,7 +10,10 @@ export type Grade = Readonly<{
    * @example "Devoir sur table"
    */
   examType: string
-  period: Period
+  period: {
+    id: string
+    name: string
+  }
   subject: Subject
   coefficient: number
   value: GradeValue
