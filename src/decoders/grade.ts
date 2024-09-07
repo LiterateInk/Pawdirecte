@@ -1,6 +1,7 @@
 import { Grade } from "~/models";
 import { decodeGradeValue } from "~/decoders/grade-value";
 
+// TODO: integrate skills
 export const decodeGrade = (item: any): Grade => {
   return {
     comment: item.devoir,

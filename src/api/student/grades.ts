@@ -19,6 +19,6 @@ export const studentGrades = async (session: Session, account: Account, year: st
   const response = await request.send(session.fetcher);
   session.token = response.token;
 
-  // TODO: a decoder for this, when we know what does it return.
+  // TODO: decode periods, skills colors and more
   return response.data.notes.map(decodeGrade);
 };

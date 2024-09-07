@@ -3,6 +3,7 @@ import { Subject } from "~/models/subject";
 import { GradeValue } from "~/models/grade-value";
 import {Skill} from "~/models/skill";
 
+// TODO: integrate QCM
 export type Grade = Readonly<{
   comment: string
   /**
