@@ -19,6 +19,6 @@ export const decodeWorkspace = (item: any): WorkspaceItem => {
     permissions: item.droitUtilisateur,
     nbMembers: item.nbMembres,
     colorEventAgenda: item.couleurEvenementAgenda,
-    createdAt: item.creeLe,
+    createdAt: item.creeLe
   };
 };

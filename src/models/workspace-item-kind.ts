@@ -1,5 +1,5 @@
 export const WorkspaceItemKind = {
-  LIBRE: "LIBRE",
+  LIBRE: "LIBRE"
   //OTHER ?
 } as const;
 
