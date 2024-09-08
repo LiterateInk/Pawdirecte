@@ -1,4 +1,4 @@
-import {Buffer} from "buffer";
+import { decode, encode } from "js-base64";
 
 /**
  * This function decodes the b64 input string, and decode uri escaped chars, if escape function exists.
@@ -6,7 +6,7 @@ import {Buffer} from "buffer";
  * Escape function allow to transform encoded chars into utf-8 ones.
  * */
 export function decodeString(value: string, escapeString: boolean = true): string {
-  const decoded = Buffer.from(value, "base64").toString();
+  const decoded = decode(value);
   if (escape && escapeString) {
     return decodeURIComponent(escape(decoded));
   }
@@ -16,6 +16,6 @@ export function decodeString(value: string, escapeString: boolean = true): strin
 /**
  * Encode string to b64
  */
-export function encodeString(value: string, encoding: BufferEncoding = "utf8"): string {
-  return Buffer.from(value, encoding).toString("base64");
+export function encodeString(value: string): string {
+  return encode(value);
 }
