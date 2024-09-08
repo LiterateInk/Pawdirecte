@@ -1,11 +1,12 @@
 import { WorkspaceItem } from "~/models";
+import { decode } from "js-base64";
 
 export const decodeWorkspace = (item: any): WorkspaceItem => {
   return {
     id: item.id,
     title: item.titre,
     description: item.description,
-    summary: item.resume,
+    summary: decode(item.resume),
     cloud: item.cloud,
     discussion: item.discussion,
     agenda: item.agenda,
