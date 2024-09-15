@@ -16,7 +16,9 @@ export const studentReceivedMessages = async (session: Session, account: Account
   const response: APIReceivedMessagesList = await request.send(session.fetcher);
   session.token = response.token;
 
-  return response.data.messages.received.map(decodeMesssagesList).sort((m1, m2) => m1.date < m2.date);
+  return response.data.messages.received.map(decodeMesssagesList).sort((m1: ReceivedMessage, m2: ReceivedMessage) => {
+    if (m1.date < m2.date) return 1; else if (m1.date > m2.date) return -1; else return 0;
+  });
 };
 
 export const readMessage = async (session: Session, account: Account, id: number): Promise<ReceivedMessage> => {
@@ -37,7 +39,7 @@ export const readMessage = async (session: Session, account: Account, id: number
     read: response.data.read,
     canAnswer: response.data.canAnswer,
     subject: response.data.subject,
-    content: Buffer.from(response.data.content, "base64"),
+    content: Buffer.from(response.data.content, "base64").toString(),
     sender: response.data.from.name,
     files: response.data.files.map((file) => ({ // to download attachement GET /telechargement.awp?leTypeDeFichier={type}&fichierId={id}
       id: file.id,
