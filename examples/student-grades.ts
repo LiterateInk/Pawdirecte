@@ -8,6 +8,6 @@ void async function main () {
     throw new ExampleCredentialsError("student");
 
   const { session, account } = await loginUsingCredentials(credentials.student_username, credentials.student_password);
-  const grades = await studentGrades(session, account, "2024");
+  const grades = await studentGrades(session, account, ""); // sensitive NOT ALL ACCOUNTS CAN GO BACK
   console.log(grades);
 }();

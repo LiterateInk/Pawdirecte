@@ -9,7 +9,7 @@ type GradesResponse = {
 };
 
 /**
- * @param year "The year to fetch grades in YYYY format."
+ * @param year "The year to fetch grades in YYYY format." SENSITIVE PARAMATER NOT ALL ACCOUNTS CAN DO THAT
  */
 export const studentGrades = async (session: Session, account: Account, year: string): Promise<GradesResponse> => {
   if (!session.token)
@@ -27,7 +27,7 @@ export const studentGrades = async (session: Session, account: Account, year: st
 
   // TODO: return parameters like colors ect...
   return {
-    grades: response.data.notes.map(decodeGrade),
-    periods: response.data.periods.map(decodePeriod)
+    grades: response.data.notes?.map(decodeGrade),
+    periods: response.data.periodes?.map(decodePeriod)
   };
 };
