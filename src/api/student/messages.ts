@@ -1,4 +1,4 @@
-import { type Account, type Session, SessionTokenRequired, type TimelineItem } from "~/models";
+import { type Account, type Session, SessionTokenRequired } from "~/models";
 import { Request } from "~/core/request";
 import { APIReceivedMessagesList } from "~/models/messages-list";
 import type { APIReceivedMessage, ReceivedMessage } from "~/models/message";
