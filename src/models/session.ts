@@ -5,6 +5,7 @@ export interface Session {
   readonly username: string
   readonly device_uuid: string
   token?: string | null
+  accessToken?: string | null
   double_auth?: DoubleAuth | null
   fetcher?: Fetcher
 }

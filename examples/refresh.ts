@@ -10,7 +10,7 @@ void async function main () {
   let { session, account } = await loginUsingCredentials(credentials.student_username, credentials.student_password);
 
   // Refresh the session token and get the accounts for the given session.
-  const accounts = await refresh(session, account.token, account.kind);
+  const accounts = await refresh(session, account.kind);
 
   // Grab the first account, and show some information.
   account = accounts[0];

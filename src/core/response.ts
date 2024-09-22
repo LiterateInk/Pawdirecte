@@ -3,6 +3,7 @@ import { getHeaderFromResponse, type Response as UnsafeResponse } from "@literat
 export class Response {
   public status: number;
   public token: string | null;
+  public access_token: string | null = null;
   public message: string | null = null;
   public data: any;
 
@@ -22,6 +23,10 @@ export class Response {
 
       if ("token" in content) {
         this.token = content.token;
+      }
+
+      if ("access_token" in content) {
+        this.access_token = content.accessToken;
       }
     }
   }
