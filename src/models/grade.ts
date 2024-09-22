@@ -23,5 +23,7 @@ export type Grade = Readonly<{
   isOptional: boolean
   outOf: number
   date: Date
+  subjectFilePath: string
+  corectionFilePath: string
   skills: Skill[]
 }>;

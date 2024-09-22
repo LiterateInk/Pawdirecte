@@ -16,6 +16,7 @@ export const decodeGrade = (item: any): Grade => {
     outOf: item.noteSur,
     period: {
       id: item.codePeriode,
+      // TODO: fill name
       name: ""
     },
     subject: {
@@ -23,6 +24,8 @@ export const decodeGrade = (item: any): Grade => {
       subSubjectId: item.codeSousMatiere,
       name: item.libelleMatiere
     },
+    subjectFilePath: item.uncSujet,
+    corectionFilePath: item.uncCorrige,
     value: decodeGradeValue(item.valeur)
   };
 };
