@@ -13,12 +13,8 @@ export const studentCantine = async (
   account: Account
 ): Promise<CantineResponse> => {
 
-  const reservations = account.modules.find((m: any) => {
-    return m.code == "RESERVATIONS";
-  });
-  const barcode = account.modules.find((m: any) => {
-    return m.code == "CANTINE_BARCODE";
-  });
+  const reservations = account.modules.find((m: any) => m.code === "RESERVATIONS");
+  const barcode = account.modules.find((m: any) => m.code === "CANTINE_BARCODE");
 
   return {
     reservation: reservations.enable ?? decodeReservation(reservations),
