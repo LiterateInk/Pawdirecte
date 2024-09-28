@@ -1,27 +1,18 @@
-import {SessionTokenRequired, type Session} from "~/models";
+import {FileKind, SessionTokenRequired, type Session} from "~/models";
 import {Request} from "~/core/request";
 
-export enum fileType {
-  Cloud = "CLOUD",
-  Homework = "FICHIER_CDT",
-  Attachement = "PIECE_JOINTE",
-  CantineMenu = "FICHIER_MENU_RESTAURATION",
-  Administrative = "ADMINISTRATIF",
-  Other = ""
-}
-
-const buildUrl = (type: fileType, id: number | string, year: string = "") => {
+const buildUrl = (type: FileKind, id: number | string, year: string = "") => {
   const endpoint = `/telechargement.awp?verbe=get&fichierId=${id}`;
   let url;
   switch (type) {
-    case fileType.Administrative:
+    case FileKind.Administrative:
       url = endpoint + year != "" ? `archive=true&anneeArchive=${year}`: "";
       break;
-    case fileType.Attachement:
+    case FileKind.Attachement:
       url = endpoint + year != "" ? `anneeMessages=${year}`: "";
       break;
     default:
-      url = endpoint + `&leTypeDeFichier=${fileType}`;
+      url = endpoint + `&leTypeDeFichier=${type}`;
   }
   return url
 }
@@ -33,7 +24,7 @@ const buildUrl = (type: fileType, id: number | string, year: string = "") => {
  */
 export const getFile = async (
   session: Session,
-  type: fileType,
+  type: FileKind,
   id: number | string,
   year: string = ""
 ): Promise<string> => {

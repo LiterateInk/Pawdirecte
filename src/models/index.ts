@@ -11,6 +11,7 @@ export * from "./attendance-item";
 export * from "./attendance-item-kind";
 export * from "./double-auth";
 export * from "./double-auth-challenge";
+export * from "./files";
 export * from "./grade";
 export * from "./grade-kind";
 export * from "./grade-value";

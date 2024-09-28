@@ -1,3 +1,5 @@
+import { FileKind } from "./files";
+
 export type ReceivedMessage = Readonly<{
   id: number,
   type: string,
@@ -7,7 +9,7 @@ export type ReceivedMessage = Readonly<{
   canAnswer: boolean,
   content: string,
   sender: string,
-  files: { type: string, id: number, name: string }[]
+  files: { type: FileKind, id: number, name: string }[]
 }>;
 
 export type APIReceivedMessageType = Readonly<{
