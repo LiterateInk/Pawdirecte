@@ -3,12 +3,7 @@ export const GradeKind = {
   Grade: 0,
   Absent: 1,
   Exempted: 2,
-  NotGraded: 3,
-  Unfit: 4,
-  Unreturned: 5,
-  AbsentZero: 6,
-  UnreturnedZero: 7,
-  Congratulations: 8
+  NotGraded: 3
 } as const;
 // Stolen from pawnote
 
