@@ -1,29 +1,31 @@
-import { type Account, Grade, Period, type Session, SessionTokenRequired, GradeValue, GradeKind } from "~/models";
+import { type Account, Grade, Period, type Session, SessionTokenRequired, GradeValue } from "~/models";
 import { Request } from "~/core/request";
 import { decodeGrade } from "~/decoders/grade";
 import { decodePeriod } from "~/decoders/period";
 import { decodeGradeValue } from "~/decoders/grade-value";
 
+type SubjectOverview = {
+  classAverage: GradeValue
+  overallAverage: GradeValue
+  subjects: {
+    name: string
+    id: string
+    childSubjectId: string
+    isChildSubject: boolean
+    color: string
+    classAverage: GradeValue
+    maxAverage: GradeValue
+    minAverage: GradeValue
+    studentAverage: GradeValue
+    outOf: GradeValue
+  }[]
+}
+
 type GradesResponse = {
   grades: Array<Grade>
   periods: Array<Period>
   overview: {
-    [key: string]: {
-      classAverage: GradeValue
-      overallAverage: GradeValue
-      subjects: {
-        name: string
-        id: string
-        childSubjectId: string
-        isChildSubject: boolean
-        color: string
-        classAverage: GradeValue
-        maxAverage: GradeValue
-        minAverage: GradeValue
-        studentAverage: GradeValue
-        outOf: GradeValue
-      }[]
-    }
+    [key: string]: SubjectOverview
   }
 };
 
