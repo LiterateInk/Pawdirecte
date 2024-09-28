@@ -13,6 +13,11 @@ export const decodeGradeValue = (value: string): GradeValue => {
         kind: GradeKind.Absent,
         points: 0
       };
+    case "":
+      return {
+        kind: GradeKind.NotGraded,
+        points: 0
+      };
     default:
       return {
         kind: GradeKind.Grade,

@@ -1,18 +1,21 @@
-import { type Account, Grade, Period, type Session, SessionTokenRequired, GradeValue } from "~/models";
-import { Response } from "~/core/response";
+import { type Account, Grade, Period, type Session, SessionTokenRequired, GradeValue, GradeKind } from "~/models";
 import { Request } from "~/core/request";
 import { decodeGrade } from "~/decoders/grade";
 import { decodePeriod } from "~/decoders/period";
+import { decodeGradeValue } from "~/decoders/grade-value";
 
 type GradesResponse = {
   grades: Array<Grade>
   periods: Array<Period>
   overview: {
     [key: string]: {
-      classAverage: number
-      overallAverage: number
+      classAverage: GradeValue
+      overallAverage: GradeValue
       subjects: {
         name: string
+        id: string
+        childSubjectId: string
+        isChildSubject: boolean
         color: string
         classAverage: GradeValue
         maxAverage: GradeValue
@@ -25,13 +28,35 @@ type GradesResponse = {
 };
 
 const buildOverview = (data: any): GradesResponse["overview"] => {
-  const overview = {}
+  const overview: GradesResponse["overview"] = {};
+  const outOf = data.parametrage.moyenneSur
+
   for (const period of data.periodes) {
-    // TODO
+    const subjects = period.ensembleMatieres.disciplines;
+    overview[period.idPeriode] = {
+      classAverage: decodeGradeValue(period.ensembleMatieres.moyenneClasse),
+      overallAverage: decodeGradeValue(period.ensembleMatieres.moyenneGenerale),
+      subjects: []
+    }
+    for (const subject of subjects) {
+      overview[period.idPeriode].subjects.push({
+        name: subject.discipline,
+        id: subject.codeMatiere,
+        childSubjectId: subject.codeSousMatiere,
+        isChildSubject: subject.sousMatiere,
+        // TODO
+        color: "string",
+        classAverage: decodeGradeValue(subject.moyenneClasse),
+        maxAverage: decodeGradeValue(subject.moyenneMax),
+        minAverage: decodeGradeValue(subject.moyenneMin),
+        studentAverage: decodeGradeValue(subject.moyenne),
+        outOf: decodeGradeValue(outOf)
+      })
+    }
   }
-  // TODO
-  return {}
-}
+
+  return overview;
+};
 
 /**
  * @param year "The year to fetch grades in YYYY format." SENSITIVE PARAMATER NOT ALL ACCOUNTS CAN DO THAT
