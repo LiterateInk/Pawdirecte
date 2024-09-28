@@ -37,6 +37,7 @@ export async function loginUsingCredentials (username: string, password: string)
 
   // Grab the first account, and show some information.
   const account = accounts[0];
+  session.accessToken = account.access_token;
   console.log("Logged in to", account.firstName, account.lastName, "from", account.schoolName);
 
   return { session, account };
