@@ -61,7 +61,7 @@ const buildOverview = (data: any): GradesResponse["overview"] => {
 };
 
 /**
- * @param year "The year to fetch grades in YYYY format." SENSITIVE PARAMATER NOT ALL ACCOUNTS CAN DO THAT
+ * @param year "The year to fetch grades in YYYY format." SENSITIVE PARAMETER NOT ALL ACCOUNTS CAN DO THAT
  */
 export const studentGrades = async (session: Session, account: Account, year: string): Promise<GradesResponse> => {
   if (!session.token)
