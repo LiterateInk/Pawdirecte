@@ -1,10 +1,10 @@
 import {decodeBarcode, decodeReservation } from "~/decoders/cantine";
 import {Account, CantineBarcode, CantineReservations } from "~/models";
 
-type CantineResponse = {
-  reservation: CantineReservations | undefined
-  barcode: CantineBarcode | undefined
-};
+type CantineResponse = Readonly<{
+  reservation?: CantineReservations
+  barcode?: CantineBarcode
+}>;
 
 /**
  * Returns the modules "RESERVATIONS" and "CANTINE_BARCODE"
