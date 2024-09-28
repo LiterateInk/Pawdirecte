@@ -8,6 +8,7 @@ export * from "./student/messages";
 export * from "./student/timeline";
 export * from "./student/timetable";
 export * from "./student/visios";
+export * from "./student/workspace";
 
 export * from "./double-auth";
 export * from "./login";
