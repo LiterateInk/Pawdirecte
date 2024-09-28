@@ -1,8 +1,8 @@
 import { getHeaderFromResponse, type Response as UnsafeResponse } from "@literate.ink/utilities";
 
 const validJson = (value: string) => {
-  return (value.startsWith("[") || value.startsWith("{")) && (value.endsWith("]") || value.endsWith("}"))
-}
+  return (value.startsWith("[") || value.startsWith("{")) && (value.endsWith("]") || value.endsWith("}"));
+};
 
 export class Response {
   public status: number;
