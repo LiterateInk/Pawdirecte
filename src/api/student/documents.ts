@@ -5,7 +5,7 @@ import { decodeDocument } from "~/decoders/document";
 /**
  * @param archive "The year of document, if it's an archive; YYYY format."
  */
-export const getDocuments = async (
+export const studentDocuments = async (
   session: Session,
   archive: string = ""
 ): Promise<PawdirecteDocument[]> => {
