@@ -7,6 +7,7 @@ export const decodeDocumentKind = (kind: any): DocumentKind => {
     case DocumentKind.SchoolLife: return DocumentKind.SchoolLife;
     case DocumentKind.Invoice: return DocumentKind.Invoice;
     case DocumentKind.Registration: return DocumentKind.Registration;
+    case DocumentKind.Textbook: return DocumentKind.Textbook;
     case DocumentKind.Other: return DocumentKind.Other;
     default: throw new UnknownEnumValue("DocumentKind", kind);
   }
