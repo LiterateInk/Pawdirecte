@@ -7,7 +7,7 @@ import { decodeDocument } from "~/decoders/document";
  */
 export const studentDocuments = async (
   session: Session,
-  archive: string = ""
+  archive = ""
 ): Promise<Document[]> => {
   if (!session.token)
     throw new SessionTokenRequired();

@@ -11,7 +11,7 @@ export const studentHomeworks = async (
   if (!session.token)
     throw new SessionTokenRequired();
 
-  const request = new Request(`/Eleves/${account.id}/cahierdetexte/${date}.awp?verbe=get&v=4.62.1`)
+  const request = new Request(`/Eleves/${account.id}/cahierdetexte/${date}.awp?verbe=get`)
     .addVersionURL()
     .setToken(session.token)
     .setFormData({});
