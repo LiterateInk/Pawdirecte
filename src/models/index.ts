@@ -9,6 +9,8 @@ export * from "./account";
 export * from "./account-kind";
 export * from "./attendance-item";
 export * from "./attendance-item-kind";
+export * from "./document";
+export * from "./document-kind";
 export * from "./double-auth";
 export * from "./double-auth-challenge";
 export * from "./files";
