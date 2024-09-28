@@ -25,7 +25,7 @@ export const decodeGrade = (item: any): Grade => {
       name: item.libelleMatiere
     },
     subjectFilePath: item.uncSujet,
-    corectionFilePath: item.uncCorrige,
+    correctionFilePath: item.uncCorrige,
     value: decodeGradeValue(item.valeur)
   };
 };

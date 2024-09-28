@@ -24,6 +24,6 @@ export type Grade = Readonly<{
   outOf: number
   date: Date
   subjectFilePath: string
-  corectionFilePath: string
+  correctionFilePath: string
   skills: Skill[]
 }>;
