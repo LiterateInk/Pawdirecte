@@ -1,6 +1,6 @@
 import { DocumentKind } from "~/models";
 
-export type PawdirecteDocument = Readonly<{
+export type Document = Readonly<{
   id: number
   name: string
   date: Date

@@ -1,7 +1,7 @@
-import { PawdirecteDocument } from "~/models";
+import { Document } from "~/models";
 import { decodeDocumentKind } from "./document-kind";
 
-export const decodeDocument = (item: any): PawdirecteDocument => {
+export const decodeDocument = (item: any): Document => {
   return {
     id: item.id,
     name: item.libelle,

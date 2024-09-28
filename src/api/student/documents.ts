@@ -1,4 +1,4 @@
-import { type PawdirecteDocument, SessionTokenRequired, type Session } from "~/models";
+import { type Document, SessionTokenRequired, type Session } from "~/models";
 import {Request} from "~/core/request";
 import { decodeDocument } from "~/decoders/document";
 
@@ -8,7 +8,7 @@ import { decodeDocument } from "~/decoders/document";
 export const studentDocuments = async (
   session: Session,
   archive: string = ""
-): Promise<PawdirecteDocument[]> => {
+): Promise<Document[]> => {
   if (!session.token)
     throw new SessionTokenRequired();
 
