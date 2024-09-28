@@ -1,63 +1,13 @@
-import { type Account, Grade, Period, type Session, SessionTokenRequired, GradeValue } from "~/models";
+import { type Account, Grade, Period, type Session, SessionTokenRequired, GradesOverview } from "~/models";
 import { Request } from "~/core/request";
 import { decodeGrade } from "~/decoders/grade";
 import { decodePeriod } from "~/decoders/period";
-import { decodeGradeValue } from "~/decoders/grade-value";
-
-type SubjectOverview = {
-  classAverage: GradeValue
-  overallAverage: GradeValue
-  subjects: {
-    name: string
-    id: string
-    childSubjectId: string
-    isChildSubject: boolean
-    color: string
-    classAverage: GradeValue
-    maxAverage: GradeValue
-    minAverage: GradeValue
-    studentAverage: GradeValue
-    outOf: GradeValue
-  }[]
-};
+import { buildOverview } from "~/decoders/grades-overview";
 
 type GradesResponse = {
   grades: Array<Grade>
   periods: Array<Period>
-  overview: {
-    [key: string]: SubjectOverview
-  }
-};
-
-const buildOverview = (data: any): GradesResponse["overview"] => {
-  const overview: GradesResponse["overview"] = {};
-  const outOf = data.parametrage.moyenneSur;
-
-  for (const period of data.periodes) {
-    const subjects = period.ensembleMatieres.disciplines;
-    overview[period.idPeriode] = {
-      classAverage: decodeGradeValue(period.ensembleMatieres.moyenneClasse),
-      overallAverage: decodeGradeValue(period.ensembleMatieres.moyenneGenerale),
-      subjects: []
-    };
-    for (const subject of subjects) {
-      overview[period.idPeriode].subjects.push({
-        name: subject.discipline,
-        id: subject.codeMatiere,
-        childSubjectId: subject.codeSousMatiere,
-        isChildSubject: subject.sousMatiere,
-        // TODO
-        color: "string",
-        classAverage: decodeGradeValue(subject.moyenneClasse),
-        maxAverage: decodeGradeValue(subject.moyenneMax),
-        minAverage: decodeGradeValue(subject.moyenneMin),
-        studentAverage: decodeGradeValue(subject.moyenne),
-        outOf: decodeGradeValue(outOf)
-      });
-    }
-  }
-
-  return overview;
+  overview: GradesOverview
 };
 
 /**
