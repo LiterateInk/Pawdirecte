@@ -1,4 +1,4 @@
-import { type Account, type Session, SessionTokenRequired } from "~/models";
+import { type Account, type Session, SessionTokenRequired, FileKind } from "~/models";
 import { Request } from "~/core/request";
 import { APIReceivedMessagesList } from "~/models/messages-list";
 import type { APIReceivedMessage, ReceivedMessage } from "~/models/message";
@@ -44,7 +44,7 @@ export const readMessage = async (session: Session, account: Account, id: number
     files: response.data.files.map((file) => ({ // to download attachement GET /telechargement.awp?leTypeDeFichier={type}&fichierId={id}
       id: file.id,
       name: file.libelle,
-      type: file.type
+      type: file.type as FileKind // file.type is always a FileKind type... a decoder would be overkill
     }))
   };
 };
