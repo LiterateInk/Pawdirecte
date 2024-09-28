@@ -38,5 +38,5 @@ export const getFile = async (
     .setFormData({ forceDownload: 0 })
     .setToken(session.token);
 
-  return await request.sendRaw(session.fetcher);
+  return request.sendRaw(session.fetcher);
 };
