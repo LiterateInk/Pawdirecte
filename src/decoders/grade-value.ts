@@ -25,7 +25,8 @@ export const decodeGradeValue = (value: string): GradeValue => {
           kind: GradeKind.Grade,
           points: Number(value)
         };
-      } catch {
+      }
+      catch {
         return {
           kind: GradeKind.Error,
           points: 0
