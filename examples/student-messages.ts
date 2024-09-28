@@ -1,8 +1,6 @@
-import { readMessage, studentReceivedMessages } from "~/api/student/messages";
-
 import { ExampleCredentialsError, credentials } from "./_credentials";
 import { loginUsingCredentials } from "./_login-using-crendentials";
-import { getAttachement } from "~/api/student/attachements";
+import { getFile, readMessage, studentReceivedMessages } from "~/api";
 
 void async function main () {
   if (!credentials.student_username || !credentials.student_password)
@@ -23,5 +21,5 @@ void async function main () {
     console.log(`${index}: ${message.files[index].name}, ${message.files[index].type}, ${message.files[index].id}`);
   }
   let fileId = Number.parseInt(prompt("Which file do you wish to dl:")?? "0");
-  await getAttachement(session, message.files[fileId].type, message.files[fileId].id);
+  await getFile(session, message.files[fileId].type, message.files[fileId].id);
 }();
