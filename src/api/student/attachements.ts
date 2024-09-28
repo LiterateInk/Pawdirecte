@@ -1,4 +1,4 @@
-import {type Session, type Account, SessionTokenRequired} from "~/models";
+import {SessionTokenRequired, type Session} from "~/models";
 import {Request} from "~/core/request";
 
 
