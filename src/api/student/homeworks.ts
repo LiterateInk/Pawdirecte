@@ -44,7 +44,7 @@ export const studentComingHomeworks = async (
 };
 
 
-export const setHomeworkDone = async (
+export const setHomeworkState = async (
   session: Session,
   account: Account,
   homeworkId: number,
