@@ -19,6 +19,7 @@ export * from "./grade";
 export * from "./grade-kind";
 export * from "./grade-value";
 export * from "./homepage-timeline-item";
+export * from "./homework";
 export * from "./period";
 export * from "./session";
 export * from "./skill";
