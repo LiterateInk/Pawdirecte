@@ -38,7 +38,7 @@ export const login = async (session: Session, password: string): Promise<Array<A
   return pipe(session, request);
 };
 
-export const refresh = async (session: Session, account_token: string, account_kind: AccountKind): Promise<Array<Account>> => {
+export const refresh = async (session: Session, account_kind: AccountKind): Promise<Array<Account>> => {
   if (!session.token)
     throw new SessionTokenRequired();
 
@@ -50,7 +50,7 @@ export const refresh = async (session: Session, account_token: string, account_k
     isReLogin: true,
     motdepasse: "???",
     typeCompte: account_kind,
-    accesstoken: account_token
+    accesstoken: session.accessToken
   }, session.token);
 
   return pipe(session, request);
@@ -59,6 +59,7 @@ export const refresh = async (session: Session, account_token: string, account_k
 const pipe = async (session: Session, request: Request): Promise<Array<Account>> => {
   const response = await request.send(session.fetcher);
   session.token = response.token;
+  session.accessToken = response.access_token;
 
   switch (response.status) {
     case 505:

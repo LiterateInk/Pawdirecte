@@ -27,5 +27,5 @@ export const studentTimetable = async (
   const response = await request.send(session.fetcher);
   session.token = response.token;
 
-  return response.data.map(decodeTimetableItem);
+  return response.data.map(decodeTimetableItem).sort((item: TimetableItem, item2: TimetableItem) => new Date(item.startDate).getTime() > new Date(item2.startDate).getTime());
 };

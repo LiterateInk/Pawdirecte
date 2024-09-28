@@ -33,4 +33,8 @@ export class Request {
     const response = await fetcher(this as UnsafeRequest);
     return new Response(response);
   }
+
+  public async sendRaw(fetcher: Fetcher = defaultFetcher) {
+    return await fetcher(this as UnsafeRequest);
+  }
 }
