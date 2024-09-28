@@ -3,7 +3,7 @@ import { decodeWorkspace } from "~/decoders/workspace-item";
 import { Request } from "~/core/request";
 
 
-export const studentWorkspace = async (session: Session, account: Account): Promise<Array<WorkspaceItem>> => {
+export const studentWorkspace = async (session: Session, account: Account): Promise<Array<WorkspaceItem> | undefined> => {
   if (!session.token)
     throw new SessionTokenRequired();
 
@@ -15,5 +15,5 @@ export const studentWorkspace = async (session: Session, account: Account): Prom
   const response = await request.send(session.fetcher);
   session.token = response.token;
 
-  return response.data.map(decodeWorkspace);
+  return response.data?.map(decodeWorkspace);
 };
