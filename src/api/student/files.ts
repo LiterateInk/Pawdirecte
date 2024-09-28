@@ -14,8 +14,8 @@ const buildUrl = (type: FileKind, id: number | string, year: string = "") => {
     default:
       url = endpoint + `&leTypeDeFichier=${type}`;
   }
-  return url
-}
+  return url;
+};
 
 /**
  * @param type "The type of file to download"
@@ -31,7 +31,7 @@ export const getFile = async (
   if (!session.token)
     throw new SessionTokenRequired();
 
-  const url = buildUrl(type, id, year)
+  const url = buildUrl(type, id, year);
   const request = new Request(url)
     .addVersionURL()
     .setFormData({forceDownload: 0})

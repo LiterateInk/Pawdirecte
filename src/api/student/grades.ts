@@ -19,7 +19,7 @@ type SubjectOverview = {
     studentAverage: GradeValue
     outOf: GradeValue
   }[]
-}
+};
 
 type GradesResponse = {
   grades: Array<Grade>
@@ -31,7 +31,7 @@ type GradesResponse = {
 
 const buildOverview = (data: any): GradesResponse["overview"] => {
   const overview: GradesResponse["overview"] = {};
-  const outOf = data.parametrage.moyenneSur
+  const outOf = data.parametrage.moyenneSur;
 
   for (const period of data.periodes) {
     const subjects = period.ensembleMatieres.disciplines;
@@ -39,7 +39,7 @@ const buildOverview = (data: any): GradesResponse["overview"] => {
       classAverage: decodeGradeValue(period.ensembleMatieres.moyenneClasse),
       overallAverage: decodeGradeValue(period.ensembleMatieres.moyenneGenerale),
       subjects: []
-    }
+    };
     for (const subject of subjects) {
       overview[period.idPeriode].subjects.push({
         name: subject.discipline,
@@ -53,7 +53,7 @@ const buildOverview = (data: any): GradesResponse["overview"] => {
         minAverage: decodeGradeValue(subject.moyenneMin),
         studentAverage: decodeGradeValue(subject.moyenne),
         outOf: decodeGradeValue(outOf)
-      })
+      });
     }
   }
 
