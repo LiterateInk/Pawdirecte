@@ -2,7 +2,7 @@ import {FileKind, SessionTokenRequired, type Session} from "~/models";
 import {Request} from "~/core/request";
 import { type Response } from "@literate.ink/utilities";
 
-export const buildPawdirecteFileUrl = (type: FileKind, id: number | string, year: string = "") => {
+export const buildPawdirecteFileDownloadUrl = (type: FileKind, id: number | string, year: string = "") => {
   const endpoint = `/telechargement.awp?verbe=get&fichierId=${id}`;
   let url;
   switch (type) {
@@ -32,7 +32,7 @@ export const getFile = async (
   if (!session.token)
     throw new SessionTokenRequired();
 
-  const url = buildPawdirecteFileUrl(type, id, year);
+  const url = buildPawdirecteFileDownloadUrl(type, id, year);
   const request = new Request(url)
     .addVersionURL()
     .setFormData({ forceDownload: 0 })
