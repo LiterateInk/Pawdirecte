@@ -1,4 +1,4 @@
-import {PawdirecteDocument, SessionTokenRequired, type Session} from "~/models";
+import { type PawdirecteDocument, SessionTokenRequired, type Session } from "~/models";
 import {Request} from "~/core/request";
 import { decodeDocument } from "~/decoders/document";
 
