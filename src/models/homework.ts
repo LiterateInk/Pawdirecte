@@ -1,4 +1,4 @@
-import { PawdirecteDocument } from "./document";
+import { Document } from "./document";
 
 export type Homework = Readonly<{
   id: number;
@@ -8,7 +8,7 @@ export type Homework = Readonly<{
   done: boolean;
   content: string;
   createdDate: Date;
-  attachments: PawdirecteDocument[];
+  attachments: Document[];
 }>;
 
 export type ComingHomework = Readonly<{
