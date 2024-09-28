@@ -30,7 +30,7 @@ export class Response {
         this.token = content.token;
       }
 
-      if ("access_token" in content) {
+      if ("accessToken" in content) {
         this.access_token = content.accessToken;
       }
     }
