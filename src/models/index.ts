@@ -9,6 +9,7 @@ export * from "./account";
 export * from "./account-kind";
 export * from "./attendance-item";
 export * from "./attendance-item-kind";
+export * from "./cantine";
 export * from "./document";
 export * from "./document-kind";
 export * from "./double-auth";
