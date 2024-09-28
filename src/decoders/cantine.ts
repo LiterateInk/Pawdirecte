@@ -37,7 +37,7 @@ export const decodeReservation = (item: any): CantineReservations => {
       lunch: item.params.repasmidi_7 == "1",
       diner: item.params.repassoir_7 == "1"
     }
-  }
+  };
   return {
     badge: item.badge,
     diet: item.params.regime,
@@ -48,5 +48,5 @@ export const decodeReservation = (item: any): CantineReservations => {
 export const decodeBarcode = (item: any): CantineBarcode => {
   return {
     badgeNumber: item.params.numeroBadge
-  }
-}
+  };
+};

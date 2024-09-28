@@ -18,6 +18,6 @@ export const studentDocuments = async (
     .setToken(session.token);
 
   const response = await request.send(session.fetcher);
-  const allDocuments = [].concat(response.data.factures).concat(response.data.notes).concat(response.data.viescolaire).concat(response.data.administratifs).concat(response.data.inscriptions)
+  const allDocuments = [].concat(response.data.factures).concat(response.data.notes).concat(response.data.viescolaire).concat(response.data.administratifs).concat(response.data.inscriptions);
   return allDocuments.map(decodeDocument);
 };
