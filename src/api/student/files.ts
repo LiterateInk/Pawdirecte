@@ -27,7 +27,7 @@ export const getFile = async (
   session: Session,
   type: FileKind,
   id: number | string,
-  year: string = ""
+  year = ""
 ): Promise<Response> => {
   if (!session.token)
     throw new SessionTokenRequired();
