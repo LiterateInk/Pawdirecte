@@ -41,5 +41,25 @@ export const studentComingHomeworks = async (
       homeworks: response.data[date].map(decodeComingHomework)
     };
   });
+};
 
+
+export const setHomeworkDone = async (
+  session: Session,
+  account: Account,
+  homeworkId: number,
+  done: boolean
+): Promise<void> => {
+  if (!session.token)
+    throw new SessionTokenRequired();
+
+  const request = new Request(`/E/${account.id}/cahierdetexte.awp?verbe=put`)
+    .addVersionURL()
+    .setToken(session.token)
+    .setFormData({
+      idDevoirsEffectues: [done ? homeworkId : null],
+      idDevoirsNonEffectues: [done ? null : homeworkId]
+    });
+
+  await request.send(session.fetcher);
 };
