@@ -2,10 +2,10 @@ import {type Session, type Account, SessionTokenRequired, type AttendanceItem} f
 import {decodeAttendanceItem} from "~/decoders/attendance-item";
 import {Request} from "~/core/request";
 
-type AttendanceResponse = {
+type AttendanceResponse = Readonly<{
   punishments: Array<AttendanceItem>
   absences: Array<AttendanceItem>
-};
+}>;
 
 export const studentAttendance = async (
   session: Session,
