@@ -18,7 +18,7 @@ export type Account = Readonly<{
   schoolLogoPath: string
   /** As HEX. */
   schoolAgendaColor: string
-  token: string
+  access_token: string
   socket_token: string
   gender: "M" | "F"
   profilePictureURL: string
