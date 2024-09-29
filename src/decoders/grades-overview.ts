@@ -4,12 +4,13 @@ import { decodeGradeValue } from "./grade-value";
 export const buildOverview = (data: any): GradesOverview => {
   const overview: GradesOverview = {};
   const outOf = data.parametrage.moyenneSur;
+  const showStudentAverage = data.parametrage.moyenneGenerale;
 
   for (const period of data.periodes) {
     const subjects = period.ensembleMatieres.disciplines;
     overview[period.idPeriode] = {
       classAverage: decodeGradeValue(period.ensembleMatieres.moyenneClasse),
-      overallAverage: decodeGradeValue(period.ensembleMatieres.moyenneGenerale),
+      overallAverage: showStudentAverage ? decodeGradeValue(period.ensembleMatieres.moyenneGenerale) : getOverallAverageFromClassAverage(period),
       subjects: []
     };
     for (const subject of subjects) {
@@ -31,3 +32,22 @@ export const buildOverview = (data: any): GradesOverview => {
 
   return overview;
 };
+
+function getOverallAverageFromClassAverage(period: any) {
+
+  const grades = [];
+  let sum = 0;
+
+  const subjects = period.ensembleMatieres.disciplines;
+
+  for (const subject of subjects) {
+    if (subject.moyenne !== ""){
+      grades.push(
+        decodeGradeValue(subject.moyenne?.replace(",", ".")).points
+      );
+      sum += decodeGradeValue(subject.moyenne?.replace(",", ".")).points;
+    }
+  }
+
+  return decodeGradeValue((sum / grades.length).toString());
+}
