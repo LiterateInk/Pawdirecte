@@ -4,6 +4,7 @@ import { APIReceivedMessagesList } from "~/models/messages-list";
 import type { APIReceivedMessage, ReceivedMessage } from "~/models/message";
 import { decodeMesssagesList } from "~/decoders/messages-list";
 import { decodeString } from "~/core/base64";
+import { decode } from "js-base64";
 
 export const studentReceivedMessages = async (session: Session, account: Account): Promise<Array<ReceivedMessage>> => {
   if (!session.token)
@@ -40,7 +41,7 @@ export const readMessage = async (session: Session, account: Account, id: number
     read: response.data.read,
     canAnswer: response.data.canAnswer,
     subject: response.data.subject,
-    content: decodeString(response.data.content),
+    content: decode(response.data.content),
     sender: response.data.from.name,
     files: response.data.files.map((file) => ({ // to download attachement GET /telechargement.awp?leTypeDeFichier={type}&fichierId={id}
       id: file.id,
