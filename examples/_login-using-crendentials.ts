@@ -1,4 +1,4 @@
-import { type Session, login, initDoubleAuth, checkDoubleAuth, DoubleAuthRequired } from "../src";
+import { type Session, login, initDoubleAuth, checkDoubleAuth, DoubleAuthRequired, setAccessToken } from "../src";
 
 // This is an identifier that'll be
 // linked to the token generated, should be very secure !
@@ -37,7 +37,7 @@ export async function loginUsingCredentials (username: string, password: string)
 
   // Grab the first account, and show some information.
   const account = accounts[0];
-  session.accessToken = account.access_token;
+  setAccessToken(session, account);
   console.log("Logged in to", account.firstName, account.lastName, "from", account.schoolName);
 
   return { session, account };
