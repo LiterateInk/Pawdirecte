@@ -53,7 +53,7 @@ export const setHomeworkState = async (
   if (!session.token)
     throw new SessionTokenRequired();
 
-  const request = new Request(`/E/${account.id}/cahierdetexte.awp?verbe=put`)
+  const request = new Request(`/Eleves/${account.id}/cahierdetexte.awp?verbe=put`)
     .addVersionURL()
     .setToken(session.token)
     .setFormData({
