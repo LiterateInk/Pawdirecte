@@ -42,9 +42,10 @@ function getOverallAverageFromClassAverage(period: any) {
 
   for (const subject of subjects) {
     if (subject.moyenne !== ""){
-      const grade = decodeGradeValue(subject.moyenne?.replace(",", ".")).points 
-      count += subject.coef;
-      sum += grade * subject.coef;
+      const grade = decodeGradeValue(subject.moyenne?.replace(",", ".")).points
+      const coef = subject.coef == 0 ? 1: subject.coef
+      count += coef;
+      sum += grade * coef;
     }
   }
 
