@@ -20,10 +20,10 @@ export const buildOverview = (data: any): GradesOverview => {
         isChildSubject: subject.sousMatiere,
         // TODO
         color: "string",
-        classAverage: decodeGradeValue(subject.moyenneClasse),
-        maxAverage: decodeGradeValue(subject.moyenneMax),
-        minAverage: decodeGradeValue(subject.moyenneMin),
-        studentAverage: decodeGradeValue(subject.moyenne),
+        classAverage: decodeGradeValue(subject.moyenneClasse?.replace(",", ".")),
+        maxAverage: decodeGradeValue(subject.moyenneMax?.replace(",", ".")),
+        minAverage: decodeGradeValue(subject.moyenneMin?.replace(",", ".")),
+        studentAverage: decodeGradeValue(subject.moyenne?.replace(",", ".")),
         outOf: decodeGradeValue(outOf)
       });
     }
