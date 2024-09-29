@@ -35,7 +35,7 @@ export const buildOverview = (data: any): GradesOverview => {
 
 function getOverallAverageFromClassAverage(period: any) {
 
-  const grades = [];
+  let count = 0;
   let sum = 0;
 
   const subjects = period.ensembleMatieres.disciplines;
@@ -43,10 +43,10 @@ function getOverallAverageFromClassAverage(period: any) {
   for (const subject of subjects) {
     if (subject.moyenne !== ""){
       const grade = decodeGradeValue(subject.moyenne?.replace(",", ".")).points 
-      grades.push(grade * subject.coef);
+      count += subject.coef;
       sum += grade * subject.coef;
     }
   }
 
-  return decodeGradeValue((sum / grades.length).toString());
+  return decodeGradeValue((sum / count).toString());
 }
