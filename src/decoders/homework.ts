@@ -3,6 +3,7 @@ import { decode } from "js-base64";
 import { ComingHomework, Homework } from "~/models";
 
 export const decodeHomework = (item: any): Homework => {
+  if (item.length == 0) return {};
   return {
     id: item.id,
     subject: item.matiere,
