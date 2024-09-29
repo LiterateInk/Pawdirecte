@@ -16,4 +16,5 @@ export type AttendanceItem = Readonly<{
   onlineJustification: boolean
   todo: boolean
   kind: AttendanceItemKind
+  displayDate: string
 }>;
