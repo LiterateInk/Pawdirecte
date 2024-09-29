@@ -73,5 +73,5 @@ const pipe = async (session: Session, request: Request): Promise<Array<Account>>
 };
 
 export const setAccessToken = (session: Session, account: Account) => {
-  session.accessToken = account.access_token
-}
+  session.accessToken = account.access_token;
+};
