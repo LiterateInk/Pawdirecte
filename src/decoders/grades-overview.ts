@@ -27,12 +27,11 @@ export const buildOverview = (data: any): GradesOverview => {
           maxAverage: decodeGradeValue(subject.moyenneMax?.replace(",", ".")),
           minAverage: decodeGradeValue(subject.moyenneMin?.replace(",", ".")),
           studentAverage: decodeGradeValue(subject.moyenne?.replace(",", ".")),
-          outOf: decodeGradeValue(outOf)
+          outOf: decodeGradeValue(outOf.toString())
         });
       }
     }
   }
-
   return overview;
 };
 
