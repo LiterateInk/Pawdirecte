@@ -10,10 +10,10 @@ export const studentReceivedMessages = async (session: Session, account: Account
   if (!session.token)
     throw new SessionTokenRequired();
 
-  const request = new Request(`/eleves/${account.id}/messages.awp?verbe=get`)
+  const request = new Request(`/eleves/${account.id}/messages.awp?verbe=get&getAll=1`)
     .addVersionURL()
     .setToken(session.token)
-    .setFormData({});
+    .setFormData({anneeMessages: `${(new Date()).getFullYear()}-${(new Date()).getFullYear() + 1}`});
 
   const response: APIReceivedMessagesList = await request.send(session.fetcher);
   session.token = response.token;
