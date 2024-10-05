@@ -1,6 +1,6 @@
 {
   "name": "pawdirecte",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A purrfect API wrapper for EcoleDirecte.",
   "repository": "https://github.com/LiterateInk/Pawdirecte",
   "sideEffects": false,
@@ -19,8 +19,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "release": "release-it",
-    "lint": "tsc && eslint ."
+    "checks": "tsc && eslint ."
   },
   "files": [
     "dist"
@@ -39,37 +38,18 @@
   "engines": {
     "node": ">=18"
   },
-  "release-it": {
-    "git": {
-      "commitMessage": "chore: release v${version}",
-      "tagAnnotation": "Release v${version}",
-      "tagName": "js-v${version}"
-    },
-    "github": {
-      "draft": false,
-      "release": true,
-      "releaseName": "js v${version}"
-    },
-    "npm": {
-      "publish": false
-    },
-    "hooks": {
-      "before:init": "pnpm lint"
-    }
-  },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^2.6.2",
     "@types/node": "^20.14.15",
     "@typescript-eslint/parser": "^8.0.1",
     "dotenv": "^16.4.5",
     "eslint": "^9.9.0",
-    "release-it": "^17.6.0",
     "terser": "^5.31.5",
     "tsup": "^8.2.4",
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@literate.ink/utilities": "1.0.0-10336585950.1",
+    "@literate.ink/utilities": "1.0.0-10641118381.1",
     "js-base64": "^3.7.7"
   }
 }
