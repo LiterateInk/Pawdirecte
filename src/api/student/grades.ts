@@ -30,7 +30,7 @@ export const studentGrades = async (session: Session, account: Account, year: st
   // TODO: return parameters like colors ect...
   return {
     grades: response.data.notes?.map(decodeGrade),
-    periods: response.data.periodes?.map(decodePeriod),
+    periods: response.data.periodes?.map(decodePeriod).filter((i: any) => !i.yearly && !response.data.parametrage.notePeriodeAnnuelle),
     overview: buildOverview(response.data)
   };
 };
