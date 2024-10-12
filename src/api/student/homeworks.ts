@@ -17,7 +17,6 @@ export const studentHomeworks = async (
     .setFormData({});
   const response = await request.send(session.fetcher);
   session.token = response.token;
-  console.log(response.data);
   return response.data?.matieres.filter((h: any) => h.aFaire).map(decodeHomework);
 };
 
