@@ -10,7 +10,7 @@ void async function main () {
 
   const messages = await studentReceivedMessages(session, account);
 
-  for (const message of messages) {
+  for (const message of messages.chats) {
     console.log(`${message.id}: Mail from ${message.sender} at ${message.date.toLocaleDateString("fr-CA")}: ${message.subject} Attachements: ${message.files.length > 0}`);
   }
   const messageId = prompt("Enter message ID:");

@@ -29,10 +29,6 @@ export class Response {
       if ("token" in content) {
         this.token = content.token;
       }
-
-      if ("accessToken" in content) {
-        this.access_token = content.accessToken;
-      }
     }
   }
 }

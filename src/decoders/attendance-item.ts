@@ -15,6 +15,7 @@ export const decodeAttendanceItem = (item: any): AttendanceItem => {
     justificationType: item.typeJustification,
     onlineJustification: item.justifieEd,
     todo: item.aFaire,
-    kind: item.typeElement
+    kind: item.typeElement,
+    displayDate: item.displayDate
   };
 };

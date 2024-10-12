@@ -1,25 +1,30 @@
-import { type Account, type Session, SessionTokenRequired, FileKind } from "~/models";
+import { type Account, type Session, SessionTokenRequired, type FileKind } from "~/models";
 import { Request } from "~/core/request";
-import { APIReceivedMessagesList } from "~/models/messages-list";
+import type { APIReceivedMessagesList } from "~/models/messages-list";
 import type { APIReceivedMessage, ReceivedMessage } from "~/models/message";
 import { decodeMesssagesList } from "~/decoders/messages-list";
 import { decodeString } from "~/core/base64";
+import { decode } from "js-base64";
 
-export const studentReceivedMessages = async (session: Session, account: Account): Promise<Array<ReceivedMessage>> => {
+export const studentReceivedMessages = async (session: Session, account: Account): Promise<{ chats: Array<ReceivedMessage>, canReply: boolean }> => {
   if (!session.token)
     throw new SessionTokenRequired();
 
-  const request = new Request(`/eleves/${account.id}/messages.awp?verbe=get`)
+  const request = new Request(`/eleves/${account.id}/messages.awp?verbe=get&getAll=1`)
     .addVersionURL()
     .setToken(session.token)
-    .setFormData({});
+    .setFormData({anneeMessages: `${(new Date()).getFullYear()}-${(new Date()).getFullYear() + 1}`});
 
   const response: APIReceivedMessagesList = await request.send(session.fetcher);
   session.token = response.token;
 
-  return response.data.messages.received.map(decodeMesssagesList).sort((m1: ReceivedMessage, m2: ReceivedMessage) => {
-    if (m1.date < m2.date) return 1; else if (m1.date > m2.date) return -1; else return 0;
-  });
+  return {
+    canReply: response.data.parametrage.destAdmin || response.data.parametrage.destEleve || response.data.parametrage.destEspTravail || response.data.parametrage.destFamille || response.data.parametrage.destProf,
+    chats: response.data.messages.received.map(decodeMesssagesList).sort((m1: ReceivedMessage, m2: ReceivedMessage) => {
+      if (m1.date < m2.date) return 1;
+      if (m1.date > m2.date) return -1;
+      return 0;
+    })};
 };
 
 export const readMessage = async (session: Session, account: Account, id: number): Promise<ReceivedMessage> => {
@@ -40,7 +45,7 @@ export const readMessage = async (session: Session, account: Account, id: number
     read: response.data.read,
     canAnswer: response.data.canAnswer,
     subject: response.data.subject,
-    content: decodeString(response.data.content),
+    content: decode(response.data.content),
     sender: response.data.from.name,
     files: response.data.files.map((file) => ({ // to download attachement GET /telechargement.awp?leTypeDeFichier={type}&fichierId={id}
       id: file.id,

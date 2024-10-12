@@ -5,15 +5,15 @@ import { decodeSkill } from "~/decoders/skill";
 export const decodeGrade = (item: any): Grade => {
   return {
     comment: item.devoir,
-    average: decodeGradeValue(item.moyenneClasse),
+    average: decodeGradeValue(item.moyenneClasse, item.noteSur),
     isOptional: item.valeurisee,
     skills: item.elementsProgramme.map(decodeSkill),
     coefficient: Number(item.coef),
     date: new Date(item.date),
     examType: item.typeDevoir,
-    max: decodeGradeValue(item.maxClasse),
-    min: decodeGradeValue(item.minClasse),
-    outOf: item.noteSur,
+    max: decodeGradeValue(item.maxClasse, item.noteSur),
+    min: decodeGradeValue(item.minClasse, item.noteSur),
+    outOf: 20,
     period: {
       id: item.codePeriode,
       // TODO: fill name
@@ -26,6 +26,6 @@ export const decodeGrade = (item: any): Grade => {
     },
     subjectFilePath: item.uncSujet,
     correctionFilePath: item.uncCorrige,
-    value: decodeGradeValue(item.valeur)
+    value: decodeGradeValue(item.valeur, item.noteSur)
   };
 };

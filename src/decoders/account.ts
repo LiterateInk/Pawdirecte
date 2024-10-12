@@ -28,6 +28,10 @@ export const decodeAccount = (account: any): Account => {
     gender,
     profilePictureURL: account.profile.photo,
     modules: account.modules,
-    currentSchoolCycle: account.anneeScolaireCourante
+    currentSchoolCycle: account.anneeScolaireCourante,
+    class: {
+      short: account.profile.classe.code,
+      long: account.profile.classe.libelle
+    }
   };
 };

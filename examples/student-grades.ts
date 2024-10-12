@@ -9,5 +9,5 @@ void async function main () {
 
   const { session, account } = await loginUsingCredentials(credentials.student_username, credentials.student_password);
   const grades = await studentGrades(session, account, ""); // sensitive NOT ALL ACCOUNTS CAN GO BACK
-  console.log(grades);
+  console.log(JSON.stringify(grades));
 }();

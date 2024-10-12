@@ -59,7 +59,6 @@ export const refresh = async (session: Session, account_kind: AccountKind): Prom
 const pipe = async (session: Session, request: Request): Promise<Array<Account>> => {
   const response = await request.send(session.fetcher);
   session.token = response.token;
-  session.accessToken = response.access_token;
 
   switch (response.status) {
     case 505:
@@ -71,4 +70,8 @@ const pipe = async (session: Session, request: Request): Promise<Array<Account>>
   }
 
   return response.data.accounts.map(decodeAccount);
+};
+
+export const setAccessToken = (session: Session, account: Account) => {
+  session.accessToken = account.access_token;
 };
