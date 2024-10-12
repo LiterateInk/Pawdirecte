@@ -17,7 +17,7 @@ export const studentHomeworks = async (
     .setFormData({});
   const response = await request.send(session.fetcher);
   session.token = response.token;
-  return response.data.matieres.map(decodeHomework);
+  return response.data?.matieres.filter((h: any | undefined) => h != undefined).map(decodeHomework);
 };
 
 
@@ -38,7 +38,7 @@ export const studentComingHomeworks = async (
   return Object.keys(response.data).map((date: string) => {
     return {
       date: new Date(date),
-      homeworks: response.data[date].map(decodeComingHomework)
+      homeworks: response.data[date].filter((h: any | undefined) => h != undefined).map(decodeComingHomework)
     };
   });
 };
