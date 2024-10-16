@@ -1,13 +1,14 @@
-import {type Account, type Session, SessionTokenRequired, ComingHomework} from "~/models";
+import {type Account, type Session, SessionTokenRequired, type ComingHomework, type ClassSubject} from "~/models";
 import {Request} from "~/core/request";
-import {decodeComingHomework, decodeHomework} from "~/decoders/homework";
-import {Homework} from "~/models";
+import {decodeClassSubject, decodeComingHomework, decodeHomework} from "~/decoders/homework";
+import type {Homework} from "~/models";
+
 
 export const studentHomeworks = async (
   session: Session,
   account: Account,
   date: string
-): Promise<Homework[]> => {
+): Promise<{ homeworks: Homework[], subjects: ClassSubject[] }> => {
   if (!session.token)
     throw new SessionTokenRequired();
 
@@ -16,10 +17,13 @@ export const studentHomeworks = async (
     .setToken(session.token)
     .setFormData({});
   const response = await request.send(session.fetcher);
-  session.token = response.token;
-  return response.data?.matieres.filter((h: any) => h.aFaire).map(decodeHomework);
-};
 
+  session.token = response.token;
+
+  const homeworks = response.data?.matieres.filter((h: any) => h.aFaire).map(decodeHomework);
+  const subjects = response.data?.matieres.map((item: any) => decodeClassSubject(item, new Date(date))).filter((subject: ClassSubject) => subject.attachments.length > 0 || subject.content !== "");
+  return { homeworks, subjects };
+};
 
 export const studentComingHomeworks = async (
   session: Session,
