@@ -1,6 +1,6 @@
 import { decodeDocument } from "./document";
 import { decode } from "js-base64";
-import type { ComingHomework, Homework } from "~/models";
+import type { ClassSubject, ComingHomework, Homework } from "~/models";
 
 export const decodeHomework = (item: any): Homework => {
   return {
@@ -34,8 +34,9 @@ export const decodeComingHomework = (item: any): ComingHomework => {
  * Feed les matières contenant les devoirs également, return les contenus de séances.
  */
 
-export function decodeClassSubject(item: any): ClassSubject {
+export function decodeClassSubject(item: any, date: Date): ClassSubject {
   return {
+    date,
     id: item.id,
     subject: item.matiere,
     teacher: item.nomProf,

@@ -21,7 +21,7 @@ export const studentHomeworks = async (
   session.token = response.token;
 
   const homeworks = response.data?.matieres.filter((h: any) => h.aFaire).map(decodeHomework);
-  const subjects = response.data?.matieres.map(decodeClassSubject).filter((subject: ClassSubject) => subject.attachments.length > 0 || subject.content !== "");
+  const subjects = response.data?.matieres.map((item: any) => decodeClassSubject(item, new Date(date))).filter((subject: ClassSubject) => subject.attachments.length > 0 || subject.content !== "");
   return { homeworks, subjects };
 };
 

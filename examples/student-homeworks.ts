@@ -8,7 +8,7 @@ void async function main () {
     throw new ExampleCredentialsError("student");
 
   const { session, account } = await loginUsingCredentials(credentials.student_username, credentials.student_password);
-  const assignments = await studentHomeworks(session, account, "2024-10-17");
+  const assignments = await studentHomeworks(session, account, "2024-10-14");
 
-  console.log(assignments);
+  console.log(JSON.stringify(assignments.subjects));
 }();
