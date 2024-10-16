@@ -1,4 +1,4 @@
-import { Document } from "./document";
+import type { Document } from "./document";
 
 export type Homework = Readonly<{
   id: number;
@@ -17,4 +17,12 @@ export type ComingHomework = Readonly<{
   isExam: boolean;
   done: boolean;
   createdDate: Date;
+}>;
+
+export type ClassSubject = Readonly<{
+  id: number,
+  subject: string,
+  teacher: string,
+  content: string,
+  attachments: Document[]
 }>;
