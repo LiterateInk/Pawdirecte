@@ -39,7 +39,7 @@ export function decodeClassSubject(item: any): ClassSubject {
     id: item.id,
     subject: item.matiere,
     teacher: item.nomProf,
-    content: decode(item.contenuDeSeance.contenu),
-    attachments: item.contenuDeSeance.documents.map(decodeDocument)
+    content: decode(item.contenuDeSeance?.contenu ?? ""),
+    attachments: item.contenuDeSeance?.documents?.map(decodeDocument) ?? []
   };
 }

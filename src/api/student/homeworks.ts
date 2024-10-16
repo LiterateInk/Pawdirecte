@@ -1,9 +1,8 @@
-import {type Account, type Session, SessionTokenRequired, ComingHomework, ClassSubject} from "~/models";
+import {type Account, type Session, SessionTokenRequired, type ComingHomework, type ClassSubject} from "~/models";
 import {Request} from "~/core/request";
 import {decodeClassSubject, decodeComingHomework, decodeHomework} from "~/decoders/homework";
-import {Homework} from "~/models";
-import { decode } from "js-base64";
-import { decodeDocument } from "~/decoders/document";
+import type {Homework} from "~/models";
+
 
 export const studentHomeworks = async (
   session: Session,
